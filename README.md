@@ -1,6 +1,12 @@
 # star-wars-movie-finder
 
+### Dependencies
+Node [v12.6.0]
+Vue
+
 ## Project setup
+*If you have `nvm` installed, run `nvm use` to set Node version to `v12.6.0`*
+
 ```
 yarn install
 ```

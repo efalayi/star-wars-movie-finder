@@ -1,0 +1,54 @@
+$white:    #FFFFFF !default;
+$gray-100: #F6F9FC !default;
+$gray-200: #E9ECEF !default;
+$gray-300: #DEE2E6 !default;
+$gray-400: #CED4DA !default;
+$gray-500: #ADB5BD !default;
+$gray-600: #8898AA !default;
+$gray-700: #525F7F !default;
+$gray-800: #32325D !default;
+$gray-900: #212529 !default;
+$black: #000000;
+$yellow-light: yellow;
+$yellow: #FCDF2B;
+
+// Spacing
+$spacer: 0.8rem !default;
+$spacers: () !default;
+$spacers: map-merge((
+  1: ($spacer * .25),
+  2: ($spacer * .5),
+  3: $spacer,
+  4: ($spacer * 1.5),
+  5: ($spacer * 3),
+), $spacers);
+
+$space-1: map-get($spacers, 1);
+$space-2: map-get($spacers, 2);
+$space-3: map-get($spacers, 3);
+$space-4: map-get($spacers, 4);
+$space-5: map-get($spacers, 5);
+
+// fonts
+$font-family-base:  'Lato', sans-serif;
+$font-family-heading: 'Montserrat', sans-serif;
+
+$font-weight-light:         300 !default;
+$font-weight-normal:        400 !default;
+$font-weight-bold:          600 !default;
+$font-weight-extra-bold:    800 !default;
+$font-weight-base:          $font-weight-normal !default;
+
+$font-size-base:     1.6rem !default;
+$line-height-base:   1.5 !default;
+
+$h1-font-size:   $font-size-base * 2.5 !default;
+$h2-font-size:   $font-size-base * 2 !default;
+$h3-font-size:   $font-size-base * 1.75 !default;
+$h4-font-size:   $font-size-base * 1.5 !default;
+$h5-font-size:   $font-size-base * 1.25 !default;
+$h6-font-size:   $font-size-base !default;
+
+// text colors
+$body-color: $black;
+$heading-color: $gray-600;

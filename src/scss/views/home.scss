@@ -1,7 +1,8 @@
 .home {
   height: 100%;
   display: grid;
-  grid-auto-columns: 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: minmax(2rem, 12rem);
   grid-auto-rows: 1fr;
   justify-items: center;
   overflow: scroll;
@@ -9,7 +10,8 @@
 
 .brand__image {
   height: 24rem;
-  width: 40rem;
+  width: 100%;
+  max-width: 40rem;
 
   img {
     height: 100%;

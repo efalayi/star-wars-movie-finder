@@ -3,3 +3,14 @@
   flex-direction: column;
   align-items: center;
 }
+
+.brand__image {
+  height: 24rem;
+  width: 40rem;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+}

@@ -9,3 +9,7 @@ export default {
   name: 'About'
 };
 </script>
+
+<style lang="scss" scoped>
+@import "@/scss/views/about.scss";
+</style>

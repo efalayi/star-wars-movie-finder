@@ -1,12 +1,14 @@
 @import "../abstracts/variables";
 
 .app__container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 10vh 80vh 10vh;
   height: 100vh;
-  overflow: scroll;
   background-color: $black;
   color: $gray-600;
+}
+
+.app__content {
+  padding: #{$space-3 * 4} $space-5;
 }

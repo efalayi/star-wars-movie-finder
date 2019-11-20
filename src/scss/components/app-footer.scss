@@ -1,0 +1,29 @@
+@import "../abstracts/variables";
+@import "../base/typography";
+
+.app__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $space-5;
+  color: $gray-600;
+
+  a {
+    font-weight: $font-weight-bold;
+    color: $gray-600;
+    &:hover {
+      color: $yellow-light;
+      font-weight: $font-weight-bold;
+    }
+  }
+}
+
+.footer__text {
+  margin-bottom: $space-4;
+  @extend .text-xs;
+  @extend .tracking-wide;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

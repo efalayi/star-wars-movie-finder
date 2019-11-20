@@ -1,0 +1,14 @@
+@import "../abstracts/variables";
+
+.app__header {
+  padding: $space-5;
+
+  a {
+    font-weight: $font-weight-bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}

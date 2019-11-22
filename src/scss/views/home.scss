@@ -1,0 +1,23 @@
+@import "../abstracts/variables";
+
+.home {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: scroll;
+}
+
+.brand__image {
+  height: 100%;
+  max-height: 24rem;
+  width: 100%;
+  max-width: 40rem;
+  margin: $space-5 0;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+}

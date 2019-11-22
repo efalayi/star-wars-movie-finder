@@ -1,0 +1,86 @@
+@import "../abstracts/variables";
+
+.icon--caret {
+  display: inline-block;
+  position: absolute;
+  top: -#{$space-3 + 0.2};
+  left: $space-5;
+  content: "";
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+  border-bottom: 1rem solid $input-border-color;
+}
+
+.dropdown-border {
+  border: $input-border-width solid $input-border-color;
+  border-bottom-right-radius: $input-border-radius;
+  border-bottom-left-radius: $input-border-radius;
+}
+
+.input__select {
+  width: 100%;
+  max-width: 48rem;
+  margin: $space-5 0;
+}
+
+.select-field {
+  display: flex;
+  border: $input-border-width solid $input-border-color;
+  border-radius: $input-border-radius;
+}
+
+.select-field__input {
+  flex: 1;
+  padding: $input-padding;
+  background-color: transparent;
+  border: 0;
+  color: $input-color;
+  outline: 0;
+}
+
+.select-field__button {
+  margin: 0;
+  padding: $input-padding;
+  background-color: transparent;
+  border-right: 0;
+  border-top: 0;
+  border-bottom: 0;
+  border-left: $input-border-width solid $input-border-color;
+  color: $input-color;
+}
+
+.select-dropdown {
+  position: relative;
+  margin-top: $space-3 * 2;
+  &::before {
+    @extend .icon--caret;
+  }
+}
+
+.select-dropdown__list,
+.select-dropdown--loading,
+.select-dropdown-no-options {
+  max-height: 16rem;
+  overflow: scroll;
+  @extend .dropdown-border;
+}
+
+.dropdown__list__item {
+  padding: $space-3 $space-3;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color .3s, color .3s;
+  &:hover {
+    background-color: $yellow;
+    color: $black;
+    font-weight: $font-weight-bold;
+  }
+}
+
+.select-dropdown--loading,
+.select-dropdown-no-options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-3 $space-3;
+}

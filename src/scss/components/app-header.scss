@@ -1,0 +1,30 @@
+@import "../abstracts/variables";
+
+.app__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-5;
+  color: $gray-500;
+
+  a {
+    font-weight: $font-weight-bold;
+    color: $gray-500;
+
+    &.router-link-exact-active {
+      color: $yellow;
+    }
+    &::after {
+      content: "|";
+      padding: 0 $space-3;
+      color: $gray-700;
+    }
+  }
+
+  a:last-child {
+    &::after {
+      content: "";
+      padding: 0;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+@import "../abstracts/variables";
+@import "../base/typography";
+
+.list-item {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  padding: $space-2;
+}
+
+.list-item__description {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.description--primary {
+  margin-right: $space-5 * 4;
+  @extend .tracking-wide;
+}
+
+.description--secondary {
+  @extend .text-xs;
+  @extend .tracking-wide;
+}
+

@@ -36,7 +36,6 @@ export default {
         label: this.currentLabel,
         value: this.currentValue
       });
-      console.log('emitted optionSelected event');
     }
   }
 };

@@ -5,11 +5,9 @@
  * @param {Object} contextWrites - RapidAPI contextWrites
  * @returns {Object} response - http response object containing status and data
  */
-const buildResponseFromContextWrites = (status, contextWrites) => {
+const buildResponseFromContextWrites = (contextWrites) => {
   const { to } = contextWrites;
   const response = {};
-
-  response.code = status;
 
   if (to) {
     const [data] = to;

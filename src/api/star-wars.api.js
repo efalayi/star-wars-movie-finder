@@ -1,8 +1,10 @@
+import Vue from 'vue';
+import axios from 'axios';
 import buildFilmOptionList from '@/lib/adapters/buildFilmOptionList';
-import { postResource } from './request';
+import buildResponseFromContextWrites from '@/lib/adapters/buildResponseFromContextWrites';
 import END_POINTS from './endpoints';
 
-const RAPID_API_BASE_URL = process.env.VUE_APP_RAPID_API_BASE_URL;
+// const SWAPI_BASE_URL = process.env.VUE_APP_SWAPI_BASE_URL;
 
 /**
  * @function getAllFilms
@@ -10,16 +12,22 @@ const RAPID_API_BASE_URL = process.env.VUE_APP_RAPID_API_BASE_URL;
  * @returns {object} - object containg films, filmOptionList, and apiError
  */
 export async function getAllFilms() {
-  const url = `${RAPID_API_BASE_URL}${END_POINTS.getFilms}`;
   let apiError = null;
   let films = null;
   let filmOptionList = [];
 
   try {
-    const { data } = await postResource(url);
-    films = data.results;
-    filmOptionList = buildFilmOptionList(data.results);
+    const { data } = await Vue.axios.post(END_POINTS.getFilms);
+    const { callback, contextWrites } = data;
+    if (callback === 'error') {
+      apiError = 'an error occurred';
+    } else {
+      const response = buildResponseFromContextWrites(contextWrites);
+      films = response.data.results;
+      filmOptionList = buildFilmOptionList(films);
+    }
   } catch (error) {
+    console.log('error: ', error);
     apiError = error;
   }
 
@@ -30,6 +38,22 @@ export async function getAllFilms() {
   };
 }
 
-export async function getAllFilmById(filmId) {
-  console.log('fetching film: ', filmId);
+export async function getFilm(filmUrl) {
+  const url = filmUrl.substring(0, filmUrl.length - 1);
+  let apiError = null;
+  let film = null;
+
+  try {
+    const { data } = await axios.post(url);
+    console.log('response: ', data);
+    film = data;
+  } catch (error) {
+    console.log('error: ', error);
+    apiError = error;
+  }
+
+  return {
+    film,
+    apiError
+  };
 }

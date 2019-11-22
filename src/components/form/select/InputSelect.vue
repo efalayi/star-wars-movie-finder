@@ -81,9 +81,8 @@ export default {
       this.value = query;
     },
     handleOptionClick(item) {
-      console.log('item selected: ', item);
-      // this.value = item.label;
-      // this.$emit('change', item);
+      this.value = item.label;
+      this.$emit('change', item);
     }
   }
 };

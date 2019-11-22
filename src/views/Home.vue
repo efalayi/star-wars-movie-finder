@@ -3,13 +3,16 @@
     <HelloWorld msg="Star Wars Movie Finder"/>
     <input-select
       :options="filmOptionList"
-      :loading="loading"
+      :loading="loadingFilmOptions"
       @change="handleSelectChange">
     </input-select>
     <div v-if="error">
       <h3 class="text-error">{{ error }}</h3>
     </div>
-    <div class="brand__image">
+    <div v-else-if="loadingFilm">
+      loading film
+    </div>
+    <div v-else class="brand__image">
       <img alt="Vue logo" src="../assets/logo.png">
     </div>
   </div>
@@ -18,7 +21,7 @@
 <script>
 import HelloWorld from '@/components/HelloWorld.vue';
 import InputSelect from '@/components/form/select/InputSelect';
-import { getAllFilms } from '@/api/star-wars.api';
+import { getAllFilms, getFilm } from '@/api/star-wars.api';
 
 export default {
   name: 'Home',
@@ -28,10 +31,12 @@ export default {
   },
   data() {
     return {
-      loading: false,
+      error: null,
+      film: null,
       films: [],
       filmOptionList: [],
-      error: null
+      loadingFilmOptions: false,
+      loadingFilm: false
     };
   },
   computed: {
@@ -43,11 +48,11 @@ export default {
     this.getAllFilms();
   },
   methods: {
-    handleSelectChange(item) {
-      console.log('option selected: ', item);
+    async handleSelectChange(item) {
+      await this.getFilm({ url: item.value });
     },
     async getAllFilms() {
-      this.loading = true;
+      this.loadingFilmOptions = true;
       const { films, filmOptionList, apiError } = await getAllFilms();
       if (apiError) {
         this.error = apiError;
@@ -55,7 +60,18 @@ export default {
         this.films = films;
         this.filmOptionList = filmOptionList;
       }
-      this.loading = false;
+      this.loadingFilmOptions = false;
+    },
+    async getFilm({ url }) {
+      this.loadingFilm = true;
+      const { film, apiError } = await getFilm(url);
+
+      if (apiError) {
+        this.error = apiError;
+      } else {
+        this.film = film;
+      }
+      this.loadingFilm = false;
     }
   }
 };

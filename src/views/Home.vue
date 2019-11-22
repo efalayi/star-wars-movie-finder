@@ -2,7 +2,6 @@
   <div class="home">
     <HelloWorld msg="Star Wars Movie Finder"/>
     <input-select
-      v-if="filmsExist"
       :options="filmOptionList"
       :loading="loading"
       @change="handleSelectChange">
@@ -18,7 +17,7 @@
 
 <script>
 import HelloWorld from '@/components/HelloWorld.vue';
-import InputSelect from '@/components/form/InputSelect';
+import InputSelect from '@/components/form/select/InputSelect';
 import { getAllFilms } from '@/api/star-wars.api';
 
 export default {

@@ -5,7 +5,7 @@ const buildFilmOptionList = (films) => {
     filmOptions.push({
       value: film.url,
       label: film.title,
-      primaryText: 'jhbsdbfjdsfvdhsbfjhsdbfjsdbfjdsbhjbdjsfbdjsbfjdsbhfbdjsbfhjbjsbahjdjbsad nbjsdbfhbdfnsb nbjksdbfbjkdjfsdbfnnjdbf  jbdsfbjsbd',
+      primaryText: film.title,
       secondaryText: film.release_date
     });
   });

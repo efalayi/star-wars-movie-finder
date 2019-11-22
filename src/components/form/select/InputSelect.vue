@@ -11,31 +11,35 @@
       <button class="select-field__button">x</button>
     </div>
     <div class="select-dropdown">
-      <div v-if="loading" class="select-dropdown__list">
-        <span class="select-dropdown__list loading">{{ loadingText }}</span>
+      <div v-if="loading" class="select-dropdown select-dropdown--loading">
+        <span>{{ loadingText }}</span>
       </div>
-      <ul v-else class="select-dropdown__list">
-        <select-option
-          v-for="option in options"
-          :key="option.value"
-          :label="option.label"
-          :value="option.value"
-          @optionSelected="handleOptionClick">
-          <list-item
-            :item="{
-              icon: '',
-              primaryText: option.primaryText,
-              secondaryText: option.secondaryText
-            }">
-          </list-item>
-        </select-option>
+      <div v-else-if="!hasOptions" class="select-dropdown select-dropdown-no-options">
+        <span>{{ noOptionsText }}</span>
+      </div>
+      <div v-else class="select-dropdown__list">
+        <ul>
+          <select-option
+            v-for="option in options"
+            :key="option.value"
+            :label="option.label"
+            :value="option.value"
+            @optionSelected="handleOptionClick">
+            <list-item
+              :item="{
+                primaryText: option.primaryText,
+                secondaryText: option.secondaryText
+              }">
+            </list-item>
+          </select-option>
       </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import ListItem from '../list/ListItem';
+import ListItem from '../../list/ListItem';
 import SelectOption from './SelectOption';
 
 export default {
@@ -49,6 +53,10 @@ export default {
     loadingText: {
       type: String,
       default: 'Loading options'
+    },
+    noOptionsText: {
+      type: String,
+      default: 'No options'
     },
     options: {
       type: Array

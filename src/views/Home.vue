@@ -2,9 +2,14 @@
   <div class="home">
     <HelloWorld msg="Star Wars Movie Finder"/>
     <input-select
-      :options="films"
+      v-if="filmsExist"
+      :options="filmOptionList"
+      :loading="loading"
       @change="handleSelectChange">
     </input-select>
+    <div v-if="error">
+      <h3 class="text-error">{{ error }}</h3>
+    </div>
     <div class="brand__image">
       <img alt="Vue logo" src="../assets/logo.png">
     </div>
@@ -26,8 +31,14 @@ export default {
     return {
       loading: false,
       films: [],
+      filmOptionList: [],
       error: null
     };
+  },
+  computed: {
+    filmsExist() {
+      return this.films.length > 0;
+    }
   },
   async mounted() {
     this.getAllFilms();
@@ -38,13 +49,14 @@ export default {
     },
     async getAllFilms() {
       this.loading = true;
-      const { films, apiError } = await getAllFilms();
-      console.log('films: ', films);
+      const { films, filmOptionList, apiError } = await getAllFilms();
       if (apiError) {
         this.error = apiError;
       } else {
         this.films = films;
+        this.filmOptionList = filmOptionList;
       }
+      this.loading = false;
     }
   }
 };

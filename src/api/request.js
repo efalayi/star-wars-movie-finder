@@ -1,4 +1,9 @@
+import buildResponseFromContextWrites from '@/lib/adapters/buildResponseFromContextWrites';
+
 const DEFAULT_ERROR_MESSAGE = 'Your request could not be processed. Please try again later';
+
+const RAPID_API_KEY = process.env.VUE_APP_RAPID_API_KEY;
+const RAPID_API_HOST = process.env.VUE_APP_RAPID_API_HOST;
 
 /**
  * @function request
@@ -9,17 +14,24 @@ const DEFAULT_ERROR_MESSAGE = 'Your request could not be processed. Please try a
 const request = (options) => {
   const { url, method } = options;
   return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
+    const data = null;
 
-    // xhr.withCredentials = true;
-    // xhr.setRequestHeader('x-rapidapi-host', 'SwapistefanskliarovV1.p.rapidapi.com');
-    // xhr.setRequestHeader('x-rapidapi-key', 'd8c1d233f3mshd9fb14a3dccf9dep14d383jsn1f299671292f');
-    // xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+    // initialise XMLHttpRequest
+    const xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
 
     xhr.open(method, url);
+
+    // set request headers
+    xhr.setRequestHeader('x-rapidapi-host', RAPID_API_HOST);
+    xhr.setRequestHeader('x-rapidapi-key', RAPID_API_KEY);
+    xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+
     xhr.onload = () => {
-      const response = { code: xhr.status, data: JSON.parse(xhr.response) };
-      console.log('resolved: ', response);
+      const { contextWrites } = JSON.parse(xhr.response);
+      const response = buildResponseFromContextWrites(
+        xhr.status, contextWrites
+      );
       resolve(response);
     };
     xhr.onerror = () => {
@@ -30,7 +42,7 @@ const request = (options) => {
       console.log('rejected: ', response);
       reject(response);
     };
-    xhr.send();
+    xhr.send(data);
   });
 };
 

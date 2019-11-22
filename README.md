@@ -5,6 +5,10 @@ Node [v12.6.0]
 Vue
 
 ## Project setup
+- create a `.env` file and add environment variables as specified in `.env.sample`
+
+**NB:** RadiAPI was used to connect this app to SWAPI. Visit [https://docs.rapidapi.com/](https://docs.rapidapi.com/) to set it up before starting the project.
+
 *If you have `nvm` installed, run `nvm use` to set Node version to `v12.6.0`*
 
 ```

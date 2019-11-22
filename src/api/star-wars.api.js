@@ -1,7 +1,8 @@
-import { getResource } from './request';
 import buildFilmOptionList from '@/lib/adapters/buildFilmOptionList';
+import { postResource } from './request';
+import END_POINTS from './endpoints';
 
-const BASE_URL = process.env.VUE_APP_SWAPI_BASE_URL;
+const RAPID_API_BASE_URL = process.env.VUE_APP_RAPID_API_BASE_URL;
 
 /**
  * @function getAllFilms
@@ -9,13 +10,13 @@ const BASE_URL = process.env.VUE_APP_SWAPI_BASE_URL;
  * @returns {object} - object containg films, filmOptionList, and apiError
  */
 export async function getAllFilms() {
-  const url = `${BASE_URL}films`;
+  const url = `${RAPID_API_BASE_URL}${END_POINTS.getFilms}`;
   let apiError = null;
   let films = null;
   let filmOptionList = [];
 
   try {
-    const { data } = await getResource(url);
+    const { data } = await postResource(url);
     films = data.results;
     filmOptionList = buildFilmOptionList(data.results);
   } catch (error) {

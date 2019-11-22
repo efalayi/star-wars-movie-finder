@@ -40,6 +40,12 @@ $font-weight-extra-bold:    800 !default;
 $font-weight-base:          $font-weight-normal !default;
 
 $font-size-base:     1.6rem !default;
+$font-size-xs:                ($font-size-base * .75);
+$font-size-sm:                $font-size-base;
+$font-size-md:                ($font-size-base * 1.25);
+$font-size-lg:                ($font-size-base * 1.5);
+$font-size-xl:                ($font-size-base * 1.75);
+
 $line-height-base:   1.5 !default;
 
 $h1-font-size:   $font-size-base * 2.5 !default;
@@ -52,3 +58,10 @@ $h6-font-size:   $font-size-base !default;
 // text colors
 $body-color: $black;
 $heading-color: $gray-600;
+
+// input
+$input-color: $gray-600;
+$input-border-color: $gray-600;
+$input-border-radius: 0.4rem;
+$input-border-width: 0.1rem;
+$input-padding: $space-3 $space-4;

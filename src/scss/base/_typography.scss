@@ -36,3 +36,27 @@ h6 {
   @extend %heading;
   font-size: $h6-font-size;
 }
+
+.text-xs {
+  font-size: $font-size-xs;
+}
+
+.text-sm, .text-base {
+  font-size: $font-size-sm;
+}
+
+.text-md {
+  font-size: $font-size-md;
+}
+
+.text-lg {
+  font-size: $font-size-lg;
+}
+
+.text-lg {
+  font-size: $font-size-lg;
+}
+
+.tracking-wide {
+  letter-spacing: 0.025em;
+}

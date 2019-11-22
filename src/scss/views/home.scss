@@ -1,12 +1,17 @@
+@import "../abstracts/variables";
+
 .home {
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: scroll;
 }
 
 .brand__image {
   height: 24rem;
-  width: 40rem;
+  width: 100%;
+  max-width: 40rem;
 
   img {
     height: 100%;

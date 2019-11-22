@@ -1,6 +1,9 @@
 @import "../abstracts/variables";
 
 .app__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: $space-5;
   color: $gray-500;
 

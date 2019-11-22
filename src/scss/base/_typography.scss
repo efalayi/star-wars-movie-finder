@@ -57,6 +57,14 @@ h6 {
   font-size: $font-size-lg;
 }
 
+.text-error {
+  color: $red;
+}
+
 .tracking-wide {
   letter-spacing: 0.025em;
+}
+
+.text-center {
+  text-align: center;
 }

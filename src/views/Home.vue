@@ -9,25 +9,28 @@
     <div v-if="error">
       <h3 class="text-error">{{ error }}</h3>
     </div>
-    <div v-else-if="loadingFilm">
-      loading film
-    </div>
-    <div v-else class="brand__image">
+    <div v-if="showBrandImage" class="brand__image">
       <img alt="Vue logo" src="../assets/logo.png">
     </div>
+    <star-wars-film
+      :loading="loadingFilm"
+      :film="film">
+    </star-wars-film>
   </div>
 </template>
 
 <script>
 import HelloWorld from '@/components/HelloWorld.vue';
 import InputSelect from '@/components/form/select/InputSelect';
+import StarWarsFilm from '@/components/StarWarsFilm';
 import { getAllFilms, getFilm } from '@/api/star-wars.api';
 
 export default {
   name: 'Home',
   components: {
     HelloWorld,
-    InputSelect
+    InputSelect,
+    StarWarsFilm
   },
   data() {
     return {
@@ -42,6 +45,9 @@ export default {
   computed: {
     filmsExist() {
       return this.films.length > 0;
+    },
+    showBrandImage() {
+      return !this.loadingFilmOptions && !this.film;
     }
   },
   async mounted() {

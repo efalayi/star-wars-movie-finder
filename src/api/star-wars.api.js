@@ -1,15 +1,47 @@
 import Vue from 'vue';
 import axios from 'axios';
+import buildFilmCharacterList from '@/lib/adapters/buildFilmCharacterList';
 import buildFilmOptionList from '@/lib/adapters/buildFilmOptionList';
 import buildResponseFromContextWrites from '@/lib/adapters/buildResponseFromContextWrites';
+import formatStarWarsFilm from '@/lib/formatters/formatStarWarsFilm';
 import END_POINTS from './endpoints';
 
 // const SWAPI_BASE_URL = process.env.VUE_APP_SWAPI_BASE_URL;
 
+const removeEndSlash = (text) => {
+  const endsWithForwardSlash = text.endsWith('/');
+  if (endsWithForwardSlash) {
+    const formattedText = text.substring(0, text.length - 1);
+    return formattedText;
+  }
+  return text;
+};
+
+/**
+ * @function getStarWarsFilmCharacters
+ * @summary return a formatted list of characters for a Star Wars film
+ * @param {Array} characterUrls - array of urls for characters in a Star Wars
+ * film
+ * @returns
+ */
+export async function getStarWarsFilmCharacters(characterUrls) {
+  const requests = characterUrls.map((characterUrl) => {
+    const url = removeEndSlash(characterUrl);
+    return axios.get(url);
+  });
+  try {
+    const resolvedPromises = await Promise.all(requests);
+    const filmCharacters = buildFilmCharacterList(resolvedPromises);
+    return filmCharacters;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 /**
  * @function getAllFilms
  * @summary gets all films from SWAPI
- * @returns {object} - object containg films, filmOptionList, and apiError
+ * @returns {Object} - object containg films, filmOptionList, and apiError
  */
 export async function getAllFilms() {
   let apiError = null;
@@ -22,12 +54,11 @@ export async function getAllFilms() {
     if (callback === 'error') {
       apiError = 'an error occurred';
     } else {
-      const response = buildResponseFromContextWrites(contextWrites);
+      const response = buildResponseFromContextWrites(contextWrites, null);
       films = response.data.results;
       filmOptionList = buildFilmOptionList(films);
     }
   } catch (error) {
-    console.log('error: ', error);
     apiError = error;
   }
 
@@ -38,17 +69,21 @@ export async function getAllFilms() {
   };
 }
 
+/**
+ * @function getFilm
+ * @param {String} filmUrl - url of Star Wars film
+ * @returns {Object} - object containg film, and apiError
+ */
 export async function getFilm(filmUrl) {
-  const url = filmUrl.substring(0, filmUrl.length - 1);
+  const url = removeEndSlash(filmUrl);
   let apiError = null;
   let film = null;
 
   try {
     const { data } = await axios.post(url);
-    console.log('response: ', data);
-    film = data;
+    const filmCharacters = await getStarWarsFilmCharacters(data.characters);
+    film = formatStarWarsFilm(data, filmCharacters);
   } catch (error) {
-    console.log('error: ', error);
     apiError = error;
   }
 

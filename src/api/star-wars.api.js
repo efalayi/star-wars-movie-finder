@@ -3,6 +3,11 @@ import buildFilmOptionList from '@/lib/adapters/buildFilmOptionList';
 
 const BASE_URL = process.env.VUE_APP_SWAPI_BASE_URL;
 
+/**
+ * @function getAllFilms
+ * @summary gets all films from SWAPI
+ * @returns {object} - object containg films, filmOptionList, and apiError
+ */
 export async function getAllFilms() {
   const url = `${BASE_URL}films`;
   let apiError = null;

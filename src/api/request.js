@@ -1,5 +1,11 @@
 const DEFAULT_ERROR_MESSAGE = 'Your request could not be processed. Please try again later';
 
+/**
+ * @function request
+ * @summary returns HTTP promise
+ * @param {Object} options - request options
+ * @returns {Promise} - HTTP promise
+ */
 const request = (options) => {
   const { url, method } = options;
   return new Promise((resolve, reject) => {
@@ -28,6 +34,12 @@ const request = (options) => {
   });
 };
 
+/**
+ * @function getResource
+ * @summary returns HTTP promise for get request
+ * @param {Object} url - API url
+ * @returns {Promise} - HTTP promise
+ */
 export const getResource = (url) => {
   const options = {
     url,
@@ -36,6 +48,12 @@ export const getResource = (url) => {
   return request(options);
 };
 
+/**
+ * @function postResource
+ * @summary returns HTTP promise for post request
+ * @param {Object} url - API url
+ * @returns {Promise} - HTTP promise
+ */
 export const postResource = (url) => {
   const options = {
     url,

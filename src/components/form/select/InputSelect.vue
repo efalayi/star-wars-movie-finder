@@ -5,16 +5,20 @@
         class="select-field__input"
         type="text"
         placeholder="Select Option"
-        v-model="value"
+        v-model="selected.label"
         @input="filterOptions"
+        @focus="handleSelectFieldFocus"
       />
       <button class="select-field__button">x</button>
     </div>
-    <div class="select-dropdown">
-      <div v-if="loading" class="select-dropdown select-dropdown--loading">
+    <div :class="{
+      'select-dropdown': true,
+      'show': showDropdown
+    }">
+      <div v-if="loading" class="select-dropdown--loading">
         <span>{{ loadingText }}</span>
       </div>
-      <div v-else-if="!hasOptions" class="select-dropdown select-dropdown-no-options">
+      <div v-else-if="!hasOptions" class="select-dropdown-no-options">
         <span>{{ noOptionsText }}</span>
       </div>
       <div v-else class="select-dropdown__list">
@@ -24,6 +28,7 @@
             :key="option.value"
             :label="option.label"
             :value="option.value"
+            :selected="isSelected(option)"
             @optionSelected="handleOptionClick">
             <list-item
               :item="{
@@ -64,7 +69,8 @@ export default {
   },
   data() {
     return {
-      value: ''
+      selected: {},
+      showDropdown: false
     };
   },
   computed: {
@@ -72,17 +78,22 @@ export default {
       return this.options.length > 0 && !this.loading;
     }
   },
-  mounted() {
-    console.log('slot: ', this.$slots);
-  },
   methods: {
     filterOptions(event) {
       const query = event.target.value;
-      this.value = query;
+      console.log('query: ', query);
+      // this.value = query;
     },
     handleOptionClick(item) {
-      this.value = item.label;
-      this.$emit('change', item);
+      this.selected = item;
+      // this.$emit('change', item);
+      this.showDropdown = false;
+    },
+    handleSelectFieldFocus() {
+      this.showDropdown = true;
+    },
+    isSelected(option) {
+      return option.value === this.selected.value;
     }
   }
 };

@@ -4,6 +4,7 @@ import buildFilmCharacterList from '@/lib/adapters/buildFilmCharacterList';
 import buildFilmOptionList from '@/lib/adapters/buildFilmOptionList';
 import buildResponseFromContextWrites from '@/lib/adapters/buildResponseFromContextWrites';
 import formatStarWarsFilm from '@/lib/formatters/formatStarWarsFilm';
+import sortFilmsByReleaseDate from '@/lib/formatters/sortFilmsByReleaseDate';
 import END_POINTS from './endpoints';
 
 // const SWAPI_BASE_URL = process.env.VUE_APP_SWAPI_BASE_URL;
@@ -55,7 +56,7 @@ export async function getAllFilms() {
       apiError = 'an error occurred';
     } else {
       const response = buildResponseFromContextWrites(contextWrites, null);
-      films = response.data.results;
+      films = sortFilmsByReleaseDate(response.data.results, 'asc');
       filmOptionList = buildFilmOptionList(films);
     }
   } catch (error) {

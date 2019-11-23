@@ -37,14 +37,12 @@
 
 <script>
 import ListItem from '../../list/ListItem';
-// import SelectOption from './SelectOption';
 import SelectOptionList from './SelectOptionList';
 
 export default {
   name: 'InputSelect',
   components: {
     ListItem,
-    // SelectOption,
     SelectOptionList
   },
   props: {

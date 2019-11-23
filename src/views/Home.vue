@@ -22,7 +22,7 @@
 <script>
 import HelloWorld from '@/components/HelloWorld.vue';
 import InputSelect from '@/components/form/select/InputSelect';
-import StarWarsFilm from '@/components/StarWarsFilm';
+import StarWarsFilm from '@/components/film/StarWarsFilm';
 import { getAllFilms, getFilm } from '@/api/star-wars.api';
 
 export default {

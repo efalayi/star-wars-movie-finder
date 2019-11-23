@@ -95,7 +95,7 @@ export default {
     handleOptionClick(item) {
       this.selected = item;
       this.query = '';
-      // this.$emit('change', item);
+      this.$emit('change', item);
       this.showDropdown = false;
     },
     handleSelectFieldFocus() {

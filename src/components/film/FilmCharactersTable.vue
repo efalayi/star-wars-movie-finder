@@ -21,16 +21,36 @@
         <td>{{ character.height }}</td>
       </tr>
       <tr v-if="hasCharacters">
-        <td colspan="3" class="text-center">Total Film Character:
-          <span class="text-md text-yellow">{{ totalFilmCharacters }}</span>
+        <td colspan="3">
+          <div class="flex items-center justify-between">
+            <span>Total Film Characters:</span>
+            <span class="text-md text-yellow">{{ totalFilmCharacters }}</span>
+          </div>
         </td>
-        <td>Sum of heights: </td>
+        <td>
+          <div class="flex items-center justify-between">
+            <span>Total:</span>
+            <div class="flex flex-col">
+              <span class="text-sm text-yellow">
+                {{ sumOfHeights.cm }}<sub>cm</sub>
+              </span>
+              <span class="text-sm text-yellow">
+                {{ sumOfHeights.ft }}<sub>ft</sub>
+              </span>
+              <span class="text-sm text-yellow">
+                {{ sumOfHeights.inch }}<sub>inch</sub>
+              </span>
+            </div>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
 </template>
 
 <script>
+import { sumOfCharacterHeights } from '@/lib/helpers/film.helper';
+
 export default {
   name: 'FilmCharactersTable',
   props: {
@@ -43,6 +63,11 @@ export default {
     totalFilmCharacters() {
       const { characters } = this;
       return characters.length;
+    },
+    sumOfHeights() {
+      const { characters } = this;
+      const sumOfHeights = sumOfCharacterHeights(characters);
+      return sumOfHeights;
     }
   }
 };

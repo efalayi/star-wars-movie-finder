@@ -6,11 +6,9 @@
     <div v-if="hasOpeningCrawl" class="scrolling-text">
       <h4>{{ film.openingCrawl }}</h4>
     </div>
-    <div>
-      <film-characters-table
-        :characters="filmCharacters">
-      </film-characters-table>
-    </div>
+    <film-characters-table
+      :characters="filmCharacters">
+    </film-characters-table>
   </div>
   <!-- <div class="w-100">
     <film-characters-table

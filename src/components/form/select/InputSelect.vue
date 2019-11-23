@@ -6,7 +6,7 @@
         type="text"
         placeholder="Select Option"
         v-model="selected.label"
-        @input="filterOptions"
+        @input="handleQueryChange"
         @focus="handleSelectFieldFocus"
       />
       <button class="select-field__button">x</button>
@@ -16,42 +16,36 @@
       'show': showDropdown
     }">
       <div v-if="loading" class="select-dropdown--loading">
-        <span>{{ loadingText }}</span>
+        <list-item
+          :item="{ primaryText: loadingText }">
+        </list-item>
       </div>
       <div v-else-if="!hasOptions" class="select-dropdown-no-options">
-        <span>{{ noOptionsText }}</span>
+        <list-item
+          :item="{ primaryText: noOptionsText }">
+        </list-item>
       </div>
-      <div v-else class="select-dropdown__list">
-        <ul>
-          <select-option
-            v-for="option in options"
-            :key="option.value"
-            :label="option.label"
-            :value="option.value"
-            :selected="isSelected(option)"
-            @optionSelected="handleOptionClick">
-            <list-item
-              :item="{
-                primaryText: option.primaryText,
-                secondaryText: option.secondaryText
-              }">
-            </list-item>
-          </select-option>
-      </ul>
-      </div>
+      <select-option-list
+        v-else
+        :options="filteredOptions"
+        :isSelected="isSelected"
+        :handleOptionClick="handleOptionClick">
+      </select-option-list>
     </div>
   </div>
 </template>
 
 <script>
 import ListItem from '../../list/ListItem';
-import SelectOption from './SelectOption';
+// import SelectOption from './SelectOption';
+import SelectOptionList from './SelectOptionList';
 
 export default {
   name: 'InputSelect',
   components: {
     ListItem,
-    SelectOption
+    // SelectOption,
+    SelectOptionList
   },
   props: {
     loading: Boolean,
@@ -70,22 +64,39 @@ export default {
   data() {
     return {
       selected: {},
-      showDropdown: false
+      showDropdown: false,
+      query: ''
     };
   },
   computed: {
+    filteredOptions() {
+      const { loading, options, query } = this;
+      let filteredOptions = !loading ? options : [];
+
+      if (query) {
+        filteredOptions = filteredOptions.filter((option) => {
+          const queryExistsInLabel = option.label.toLowerCase().includes(query);
+          return queryExistsInLabel;
+        });
+      }
+      return filteredOptions;
+    },
     hasOptions() {
-      return this.options.length > 0 && !this.loading;
+      return this.filteredOptions.length > 0 && !this.loading;
     }
   },
   methods: {
-    filterOptions(event) {
+    handleQueryChange(event) {
       const query = event.target.value;
-      console.log('query: ', query);
-      // this.value = query;
+
+      if (!query) {
+        this.selected = {};
+      }
+      this.query = query;
     },
     handleOptionClick(item) {
       this.selected = item;
+      this.query = '';
       // this.$emit('change', item);
       this.showDropdown = false;
     },
@@ -99,6 +110,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/scss/components/input-select";
 </style>

@@ -1,4 +1,7 @@
 import Vue from 'vue';
+import VueAxios from 'vue-axios';
+// import axios from 'axios';
+import axiosInstance from '@/api/request';
 import App from './App.vue';
 import router from './router';
 
@@ -6,6 +9,9 @@ import router from './router';
 import '@/scss/main.scss';
 
 Vue.config.productionTip = false;
+
+// add axios to vue instance
+Vue.use(VueAxios, axiosInstance);
 
 new Vue({
   router,

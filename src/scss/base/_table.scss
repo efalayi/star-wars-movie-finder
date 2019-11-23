@@ -1,0 +1,25 @@
+table, .table {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: $space-5 0;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.table-bordered {
+  border: 0.1rem solid $gray-600;
+}
+
+thead {
+  th {
+    font-family: $font-family-heading;
+    font-weight: 800;
+    color: $yellow;
+  }
+}
+
+th, td {
+  padding: $space-3 $space-4;
+  border: 0.1rem solid $gray-600;
+}

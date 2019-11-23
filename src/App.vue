@@ -1,8 +1,10 @@
 <template>
   <div id="app" class="app__container">
     <app-header></app-header>
-    <main class="app__content">
-      <router-view/>
+    <main class="app__content animated linear">
+      <transition name="fade" :duration="500" mode="out-in">
+        <router-view></router-view>
+      </transition>
     </main>
     <app-footer/>
   </div>

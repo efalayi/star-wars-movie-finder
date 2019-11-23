@@ -5,6 +5,9 @@ import axiosInstance from '@/api/request';
 import App from './App.vue';
 import router from './router';
 
+// animate.css styles
+import '@/vendor/animate';
+
 // scss base styles
 import '@/scss/main.scss';
 

@@ -1,0 +1,19 @@
+@import "../abstracts/mixins/make-transitions";
+
+$animations: (
+  fade: '',
+  slide: Up
+);
+
+
+@each $key, $values in $animations {
+  @include make-transitions($key, $values);
+}
+
+/* Animation Duration */
+.animated {
+  // Timing classes
+  &.linear {
+    animation-timing-function: linear;
+  }
+}

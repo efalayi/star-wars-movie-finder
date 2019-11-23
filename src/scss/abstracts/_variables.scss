@@ -30,6 +30,10 @@ $space-3: map-get($spacers, 3);
 $space-4: map-get($spacers, 4);
 $space-5: map-get($spacers, 5);
 
+// animation
+$animate-default: 1s;
+$animate-duration: $animate-default;
+
 // fonts
 $font-family-base:  'Lato', sans-serif;
 $font-family-heading: 'Montserrat', sans-serif;

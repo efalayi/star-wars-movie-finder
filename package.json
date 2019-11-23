@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "inspect": "vue-cli-service inspect",
     "build": "vue-cli-service build",
+    "build:dev": "vue-cli-service build --development",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "animate.css": "^3.7.2",
     "axios": "^0.19.0",
     "core-js": "^3.3.2",
     "vue": "^2.6.10",

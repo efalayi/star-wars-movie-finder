@@ -12,6 +12,8 @@
 
 .app__content {
   width: 100%;
-  padding: #{$space-3 * 4} $space-5;
+  max-width: 96rem;
+  margin: 0 auto;
+  padding: #{$space-3 * 4} #{$space-5 * 4};
   overflow: hidden;
 }

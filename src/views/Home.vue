@@ -9,9 +9,11 @@
     <div v-if="error">
       <h3 class="text-error">{{ error }}</h3>
     </div>
-    <div v-if="showBrandImage" class="brand__image">
-      <img alt="Vue logo" src="../assets/logo.png">
-    </div>
+    <transition name="fade" :duration="1000" mode="out-in">
+      <div v-if="showBrandImage" class="brand__image">
+        <img alt="Vue logo" src="../assets/logo.png">
+      </div>
+    </transition>
     <star-wars-film
       :loading="loadingFilm"
       :film="film">
@@ -47,7 +49,7 @@ export default {
       return this.films.length > 0;
     },
     showBrandImage() {
-      return !this.loadingFilmOptions && !this.film;
+      return !this.film;
     }
   },
   async mounted() {

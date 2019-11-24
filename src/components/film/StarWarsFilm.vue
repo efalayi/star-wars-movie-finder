@@ -2,18 +2,14 @@
   <div v-if="loading">
     <span>loading star wars film</span>
   </div>
-  <div v-else-if="film" class="w-100">
-    <div v-if="hasOpeningCrawl" class="scrolling-text">
+  <div v-else-if="film" class="w-100 animated slow slideInUp">
+    <div v-if="hasOpeningCrawl" class="scrolling-text text-center">
       <h4>{{ film.openingCrawl }}</h4>
     </div>
     <film-characters-table
       :characters="filmCharacters">
     </film-characters-table>
   </div>
-  <!-- <div class="w-100">
-    <film-characters-table
-      :characters="filmCharacters"></film-characters-table>
-  </div> -->
 </template>
 
 <script>

@@ -10,5 +10,11 @@ import 'animate.css/source/_base.css';
 import 'animate.css/source/fading_entrances/fadeIn.css';
 import 'animate.css/source/fading_exits/fadeOut.css';
 
+// flip
+import 'animate.css/source/flippers/flip.css';
+import 'animate.css/source/flippers/flipInX.css';
+import 'animate.css/source/flippers/flipOutX.css';
+
 // slide animations
 import 'animate.css/source/sliding_entrances/slideInUp.css';
+import 'animate.css/source/sliding_entrances/slideInDown.css';

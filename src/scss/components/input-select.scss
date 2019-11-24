@@ -50,13 +50,9 @@
 }
 
 .select-dropdown {
-  display: none;
   position: relative;
   margin-top: $space-3 * 2;
-  &.show {
-    display: block;
-  }
-  &.show::before {
+  &::before {
     @extend .icon--caret;
   }
 }
@@ -67,7 +63,6 @@
   max-height: 14.4rem;
   overflow: scroll;
   @extend .dropdown-border;
-  transition: height 3s;
 }
 
 .dropdown__list__item {

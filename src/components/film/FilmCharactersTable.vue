@@ -1,5 +1,5 @@
 <template>
-  <table class="table table-bordered">
+  <table class="table table-bordered animated slower fadeIn">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -32,14 +32,17 @@
             <span>Total:</span>
             <div class="flex flex-col">
               <span class="text-sm text-yellow">
-                {{ sumOfHeights.cm }}<sub>cm</sub>
+              {{ sumOfHeights.cm }}<sub>cm</sub>
               </span>
-              <span class="text-sm text-yellow">
-                {{ sumOfHeights.ft }}<sub>ft</sub>
-              </span>
-              <span class="text-sm text-yellow">
-                {{ sumOfHeights.inch }}<sub>inch</sub>
-              </span>
+              <div>
+                (<span class="text-sm">
+                  {{ sumOfHeights.ft }}<sub>ft</sub>
+                </span>
+                <span class="text-xs ml-3 mr-3">/</span>
+                <span class="text-xs">
+                  {{ sumOfHeights.inch }}<sub>inch</sub>
+                </span>)
+              </div>
             </div>
           </div>
         </td>

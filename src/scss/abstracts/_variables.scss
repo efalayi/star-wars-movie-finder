@@ -13,6 +13,21 @@ $yellow-light: yellow;
 $yellow: #FCDF2B;
 $red: red;
 
+// Breakpoints
+$breakpoints: (
+  xs: 0,
+  sm: '768px',
+  md: '992px',
+  lg: '1200px',
+  xl: '1920px',
+);
+
+$xs-screen: map-get($breakpoints, "xs");
+$sm-screen: map-get($breakpoints, "sm");
+$md-screen: map-get($breakpoints, "md");
+$lg-screen: map-get($breakpoints, "lg");
+$xl-screen: map-get($breakpoints, "xl");
+
 // Spacing
 $spacer: 0.8rem !default;
 $spacers: () !default;
@@ -29,6 +44,10 @@ $space-2: map-get($spacers, 2);
 $space-3: map-get($spacers, 3);
 $space-4: map-get($spacers, 4);
 $space-5: map-get($spacers, 5);
+
+// animation
+$animate-default: 1s;
+$animate-duration: $animate-default;
 
 // fonts
 $font-family-base:  'Lato', sans-serif;

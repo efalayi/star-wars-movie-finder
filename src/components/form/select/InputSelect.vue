@@ -9,40 +9,45 @@
         @input="handleQueryChange"
         @focus="handleSelectFieldFocus"
       />
-      <button class="select-field__button">x</button>
+      <button class="select-field__button" @click="toggleDropdown">
+        <font-awesome-icon icon="caret-down" size="lg"></font-awesome-icon>
+      </button>
     </div>
-    <div :class="{
-      'select-dropdown': true,
-      'show': showDropdown
-    }">
-      <div v-if="loading" class="select-dropdown--loading">
-        <list-item
-          :item="{ primaryText: loadingText }">
-        </list-item>
+    <transition name="flipX" :duration="500">
+      <div v-if="showDropdown" :class="{
+        'select-dropdown': true
+      }">
+        <div v-if="loading" class="select-dropdown--loading">
+          <list-item>
+            <loader slot="list-item" :loadingText="loadingText"></loader>
+          </list-item>
+        </div>
+        <div v-else-if="!hasOptions" class="select-dropdown-no-options">
+          <list-item
+            :item="{ primaryText: noOptionsText }">
+          </list-item>
+        </div>
+        <select-option-list
+          v-else
+          :options="filteredOptions"
+          :isSelected="isSelected"
+          :handleOptionClick="handleOptionClick">
+        </select-option-list>
       </div>
-      <div v-else-if="!hasOptions" class="select-dropdown-no-options">
-        <list-item
-          :item="{ primaryText: noOptionsText }">
-        </list-item>
-      </div>
-      <select-option-list
-        v-else
-        :options="filteredOptions"
-        :isSelected="isSelected"
-        :handleOptionClick="handleOptionClick">
-      </select-option-list>
-    </div>
+    </transition>
   </div>
 </template>
 
 <script>
 import ListItem from '../../list/ListItem';
+import Loader from '../../Loader';
 import SelectOptionList from './SelectOptionList';
 
 export default {
   name: 'InputSelect',
   components: {
     ListItem,
+    Loader,
     SelectOptionList
   },
   props: {
@@ -103,6 +108,9 @@ export default {
     },
     isSelected(option) {
       return option.value === this.selected.value;
+    },
+    toggleDropdown() {
+      this.showDropdown = !this.showDropdown;
     }
   }
 };

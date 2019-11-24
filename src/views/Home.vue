@@ -4,14 +4,20 @@
     <input-select
       :options="filmOptionList"
       :loading="loadingFilmOptions"
+      loadingText="Loading films"
       @change="handleSelectChange">
     </input-select>
-    <div v-if="error">
-      <h3 class="text-error">{{ error }}</h3>
-    </div>
-    <div v-if="showBrandImage" class="brand__image">
-      <img alt="Vue logo" src="../assets/logo.png">
-    </div>
+    <app-error
+      v-if="error"
+      :error="error"
+      :handleError="reloadPage"
+      buttonText="Reload">
+    </app-error>
+    <transition name="fade" :duration="1000" mode="out-in">
+      <div v-if="showBrandImage" class="brand__image">
+        <img alt="Vue logo" src="../assets/logo.png">
+      </div>
+    </transition>
     <star-wars-film
       :loading="loadingFilm"
       :film="film">
@@ -20,6 +26,7 @@
 </template>
 
 <script>
+import AppError from '@/components/AppError';
 import HelloWorld from '@/components/HelloWorld.vue';
 import InputSelect from '@/components/form/select/InputSelect';
 import StarWarsFilm from '@/components/film/StarWarsFilm';
@@ -28,6 +35,7 @@ import { getAllFilms, getFilm } from '@/api/star-wars.api';
 export default {
   name: 'Home',
   components: {
+    AppError,
     HelloWorld,
     InputSelect,
     StarWarsFilm
@@ -47,7 +55,7 @@ export default {
       return this.films.length > 0;
     },
     showBrandImage() {
-      return !this.loadingFilmOptions && !this.film;
+      return !this.film;
     }
   },
   async mounted() {
@@ -78,6 +86,9 @@ export default {
         this.film = film;
       }
       this.loadingFilm = false;
+    },
+    reloadPage() {
+      window.location.reload(true);
     }
   }
 };

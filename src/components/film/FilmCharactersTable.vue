@@ -17,8 +17,17 @@
         :key="character.id">
         <th scope="row">{{ index + 1 }}</th>
         <td>{{ character.name }}</td>
-        <td>{{ character.gender }}</td>
-        <td>{{ character.height }}</td>
+        <td class="text-center">
+          <span v-if="genderIsUndefined(character.gender)">
+            {{ character.gender }}
+          </span>
+          <font-awesome-icon
+            v-else
+            :icon="character.gender"
+            size="lg">
+          </font-awesome-icon>
+        </td>
+        <td class="text-center">{{ character.height }}</td>
       </tr>
       <tr v-if="hasCharacters">
         <td colspan="3">
@@ -34,12 +43,11 @@
               <span class="text-sm text-yellow">
               {{ sumOfHeights.cm }}<sub>cm</sub>
               </span>
-              <div>
-                (<span class="text-sm">
+              <div>(<span class="text-sm">
                   {{ sumOfHeights.ft }}<sub>ft</sub>
                 </span>
                 <span class="text-xs ml-3 mr-3">/</span>
-                <span class="text-xs">
+                <span class="text-sm">
                   {{ sumOfHeights.inch }}<sub>inch</sub>
                 </span>)
               </div>
@@ -71,6 +79,14 @@ export default {
       const { characters } = this;
       const sumOfHeights = sumOfCharacterHeights(characters);
       return sumOfHeights;
+    }
+  },
+  methods: {
+    genderIsUndefined(gender) {
+      const isMale = gender.toLowerCase() === 'male';
+      const isFemale = gender.toLowerCase() === 'female';
+      const isUndefined = !isMale && !isFemale;
+      return isUndefined;
     }
   }
 };

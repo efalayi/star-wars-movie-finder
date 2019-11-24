@@ -15,6 +15,9 @@ import 'animate.css/source/flippers/flip.css';
 import 'animate.css/source/flippers/flipInX.css';
 import 'animate.css/source/flippers/flipOutX.css';
 
+// attention seekers
+import 'animate.css/source/attention_seekers/pulse.css';
+
 // slide animations
 import 'animate.css/source/sliding_entrances/slideInUp.css';
 import 'animate.css/source/sliding_entrances/slideInDown.css';

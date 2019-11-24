@@ -1,7 +1,13 @@
 <template>
   <div class="app__footer">
     <span class="footer__text">&copy; {{ currentYear }}</span>
-    <span class="footer__text">Made with ❤️ by
+    <span class="footer__text">Made with
+      <span class="animated slow pulse infinite">
+        <font-awesome-icon
+          icon="heart"
+          class="text-sm text-red animated pulse infinite">
+        </font-awesome-icon>
+      </span> by
       <a href="">efalayi</a>
     </span>
   </div>

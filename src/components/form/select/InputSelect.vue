@@ -9,15 +9,17 @@
         @input="handleQueryChange"
         @focus="handleSelectFieldFocus"
       />
-      <button class="select-field__button" @click="toggleDropdown">x</button>
+      <button class="select-field__button" @click="toggleDropdown">
+        <font-awesome-icon icon="caret-down" size="lg"></font-awesome-icon>
+      </button>
     </div>
     <transition name="flipX" :duration="500">
       <div v-if="showDropdown" :class="{
         'select-dropdown': true
       }">
         <div v-if="loading" class="select-dropdown--loading">
-          <list-item
-            :item="{ primaryText: loadingText }">
+          <list-item>
+            <loader slot="list-item" :loadingText="loadingText"></loader>
           </list-item>
         </div>
         <div v-else-if="!hasOptions" class="select-dropdown-no-options">
@@ -38,12 +40,14 @@
 
 <script>
 import ListItem from '../../list/ListItem';
+import Loader from '../../Loader';
 import SelectOptionList from './SelectOptionList';
 
 export default {
   name: 'InputSelect',
   components: {
     ListItem,
+    Loader,
     SelectOptionList
   },
   props: {

@@ -1,9 +1,13 @@
 <template>
   <div class="list-item">
-    <span class="list-item__description">
-      <span class="description--primary">{{ item.primaryText }}</span>
-      <span v-if="item.secondaryText" class="description--secondary">{{ item.secondaryText }}</span>
-    </span>
+    <slot name="list-item">
+      <span class="list-item__description">
+        <span class="description--primary">{{ primaryText }}</span>
+        <span
+          v-if="secondaryText"
+          class="description--secondary">{{ secondaryText }}</span>
+      </span>
+    </slot>
   </div>
 </template>
 
@@ -13,10 +17,21 @@ export default {
   props: {
     item: {
       primaryText: {
-        type: String,
-        required: true
+        type: String
       },
       secondaryText: String
+    }
+  },
+  computed: {
+    primaryText() {
+      const { item } = this;
+      const text = item ? item.primaryText : '';
+      return text;
+    },
+    secondaryText() {
+      const { item } = this;
+      const text = item ? item.secondaryText : '';
+      return text;
     }
   }
 };

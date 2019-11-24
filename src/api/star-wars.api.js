@@ -5,6 +5,7 @@ import buildFilmOptionList from '@/lib/adapters/buildFilmOptionList';
 import buildResponseFromContextWrites from '@/lib/adapters/buildResponseFromContextWrites';
 import formatStarWarsFilm from '@/lib/formatters/formatStarWarsFilm';
 import sortFilmsByReleaseDate from '@/lib/formatters/sortFilmsByReleaseDate';
+import { processError } from './request';
 import END_POINTS from './endpoints';
 
 // const SWAPI_BASE_URL = process.env.VUE_APP_SWAPI_BASE_URL;
@@ -60,7 +61,7 @@ export async function getAllFilms() {
       filmOptionList = buildFilmOptionList(films);
     }
   } catch (error) {
-    apiError = error;
+    apiError = processError(error);
   }
 
   return {
@@ -85,7 +86,7 @@ export async function getFilm(filmUrl) {
     const filmCharacters = await getStarWarsFilmCharacters(data.characters);
     film = formatStarWarsFilm(data, filmCharacters);
   } catch (error) {
-    apiError = error;
+    apiError = processError(error);
   }
 
   return {

@@ -17,13 +17,15 @@
       :selectedOption="genderOption"
       @change="handleGenderOptionChange"></gender-filter>
     <film-characters-table
-      :characters="filmCharacters">
+      :characters="filmCharacters"
+      :sortColumn="sortColumn">
     </film-characters-table>
   </div>
 </template>
 
 <script>
 import filterCharacters from '@/lib/formatters/filterCharacters';
+import sortFilmCharacters from '@/lib/formatters/sortFilmCharacters';
 import FilmCharactersTable from './FilmCharactersTable';
 import GenderFilter from './GenderFilter';
 import Loader from '../Loader';
@@ -41,21 +43,40 @@ export default {
   },
   data() {
     return {
-      genderOption: 'all'
+      genderOption: 'all',
+      filteredCharacters: []
     };
   },
   computed: {
-    filmCharacters() {
-      const { film, genderOption } = this;
-      const characters = film ? film.characters : [];
-      const filterValue = genderOption === 'all' ? null : genderOption;
-      const filteredCharacters = filterCharacters(characters, 'gender', filterValue);
-      return filteredCharacters;
+    filmCharacters: {
+      get() {
+        return this.filteredCharacters;
+      },
+      set(newValue) {
+        console.log('filmCharacters updated: ', newValue);
+        this.filteredCharacters = newValue;
+      }
     },
     hasOpeningCrawl() {
       const { film } = this;
       const openingCrawl = film ? film.openingCrawl : '';
       return Boolean(openingCrawl);
+    }
+  },
+  watch: {
+    film(nextValue, prevValue) {
+      const prevFilmTitle = prevValue ? prevValue.title : '';
+      const nextFilmTitle = nextValue ? nextValue.title : '';
+      console.log('film watcher: ', nextFilmTitle, prevFilmTitle);
+
+      if (nextFilmTitle !== prevFilmTitle) {
+        this.filterFilmCharacters();
+      }
+    },
+    genderOption(nextValue, prevValue) {
+      if (nextValue !== prevValue) {
+        this.filterFilmCharacters();
+      }
     }
   },
   beforeUpdate() {
@@ -64,8 +85,20 @@ export default {
     }
   },
   methods: {
+    filterFilmCharacters() {
+      const { film, genderOption } = this;
+      const characters = film ? film.characters : [];
+      const filterValue = genderOption === 'all' ? null : genderOption;
+      const filteredCharacters = filterCharacters(characters, 'gender', filterValue);
+      this.filteredCharacters = filteredCharacters;
+    },
     handleGenderOptionChange(option) {
       this.genderOption = option;
+    },
+    sortColumn({ column, order }) {
+      const { film: { characters } } = this;
+      const sortedCharacters = sortFilmCharacters(characters, column.value, order);
+      this.filmCharacters = sortedCharacters;
     }
   }
 };

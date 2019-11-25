@@ -8,7 +8,6 @@
  */
 const sortFilmCharacters = (characters, sortKey, order = 'desc') => {
   const isDescendingOrder = order === 'desc';
-  console.log('sort characters: ', characters, sortKey, isDescendingOrder);
   const sortedCharacters = [...characters].sort((current, next) => {
     const currentValue = current[sortKey];
     const nextValue = next[sortKey];

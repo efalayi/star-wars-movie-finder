@@ -23,13 +23,13 @@
 .film__filter--gender {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   .gender__option {
     display: inline-flex;
     align-items: center;
     padding: $space-2;
-    @extend .text-sm;
     margin-right: $space-5;
+    @extend .text-sm;
 
     &:last-child {
       margin-right: 0;
@@ -47,6 +47,7 @@
   border: 0.1rem solid $gray-500;
   margin: 0 $space-3 0 0;
   line-height: $line-height-base;
+  cursor: pointer;
   transition: background-color .3s, border-color .3s;
   &:checked {
     background-color: $yellow;

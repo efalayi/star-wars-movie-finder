@@ -10,9 +10,9 @@
       'slower': true,
       'slideInUp': true
     }">
-    <div v-if="hasOpeningCrawl" class="scrolling-text text-center">
-      <h4>{{ film.openingCrawl }}</h4>
-    </div>
+    <scrolling-text v-if="hasOpeningCrawl">
+      <h6>{{ film.openingCrawl }}</h6>
+    </scrolling-text>
     <gender-filter
       :selectedOption="genderOption"
       @change="handleGenderOptionChange"></gender-filter>
@@ -26,16 +26,18 @@
 <script>
 import filterCharacters from '@/lib/formatters/filterCharacters';
 import sortFilmCharacters from '@/lib/formatters/sortFilmCharacters';
+import Loader from '../Loader';
+import ScrollingText from '../ScrollingText';
 import FilmCharactersTable from './FilmCharactersTable';
 import GenderFilter from './GenderFilter';
-import Loader from '../Loader';
 
 export default {
   name: 'StarWarsFilm',
   components: {
     FilmCharactersTable,
     GenderFilter,
-    Loader
+    Loader,
+    ScrollingText
   },
   props: {
     loading: Boolean,

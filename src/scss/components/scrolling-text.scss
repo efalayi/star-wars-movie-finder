@@ -1,0 +1,13 @@
+.scrolling-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15rem;
+  width: 100%;
+  max-width: 50rem;
+  margin: 0 auto;
+
+  marquee {
+    text-align: center;
+  }
+}

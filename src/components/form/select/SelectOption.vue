@@ -1,6 +1,9 @@
 <template>
   <li
-    class="dropdown__list__item"
+    :class="{
+      'dropdown__list__item': true,
+      'is-selected': selected
+    }"
     @click.stop="handleSelect"
   >
     <slot>
@@ -13,6 +16,7 @@
 export default {
   name: 'SelectOption',
   props: {
+    selected: Boolean,
     label: {
       type: [String, Number],
       required: true
@@ -36,7 +40,6 @@ export default {
         label: this.currentLabel,
         value: this.currentValue
       });
-      console.log('emitted optionSelected event');
     }
   }
 };

@@ -1,0 +1,19 @@
+@mixin make-transitions($base, $names) {
+  @each $name in $names {
+    .#{$base}#{$name}-move {
+      transition: all $animate-duration;
+    }
+
+    .#{$base}#{$name}-enter-active, .#{$base}#{$name}-leave-active {
+      animation-duration: $animate-duration;
+      animation-fill-mode: both;
+    }
+
+    .#{$base}#{$name}-enter-active {
+      animation-name: #{$base}In#{$name};
+    }
+    .#{$base}#{$name}-leave-active {
+      animation-name: #{$base}Out#{$name};
+    }
+  }
+}

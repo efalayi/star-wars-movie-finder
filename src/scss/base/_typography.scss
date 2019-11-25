@@ -57,8 +57,24 @@ h6 {
   font-size: $font-size-lg;
 }
 
-.text-error {
+.text-error, .text-red {
   color: $red;
+}
+
+.text-yellow {
+  color: $yellow;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .tracking-wide {
@@ -67,4 +83,8 @@ h6 {
 
 .text-center {
   text-align: center;
+}
+
+.capitalise {
+  text-transform: capitalize;
 }

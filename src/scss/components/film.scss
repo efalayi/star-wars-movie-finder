@@ -1,0 +1,63 @@
+@import "../abstracts/variables";
+@import "../base/typography";
+
+.film {
+  width: 100%;
+  overflow: scroll;
+}
+
+.film__table {
+  border-collapse: separate;
+}
+
+.film__filter {
+  width: 100%;
+  margin: $space-5 0;
+  padding: $space-3 $space-5;
+}
+
+.film__filter__title {
+  margin-right: $space-3;
+}
+
+.film__filter--gender {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  .gender__option {
+    display: inline-flex;
+    align-items: center;
+    padding: $space-2;
+    @extend .text-sm;
+    margin-right: $space-5;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.gender__option input[type="radio"] {
+  appearance: none;
+  outline: none;
+  height: 1.6rem;
+  width: 1.6rem;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 0.1rem solid $gray-500;
+  margin: 0 $space-3 0 0;
+  line-height: $line-height-base;
+  transition: background-color .3s, border-color .3s;
+  &:checked {
+    background-color: $yellow;
+    border-color: $yellow;
+
+    + label {
+      color: $yellow;
+    }
+  }
+}
+
+.gender__option label {
+  @extend .capitalise;
+}

@@ -1,75 +1,29 @@
-import buildResponseFromContextWrites from '@/lib/adapters/buildResponseFromContextWrites';
+import axios from 'axios';
 
-const DEFAULT_ERROR_MESSAGE = 'Your request could not be processed. Please try again later';
-
+const RAPID_API_BASE_URL = process.env.VUE_APP_RAPID_API_BASE_URL;
 const RAPID_API_KEY = process.env.VUE_APP_RAPID_API_KEY;
 const RAPID_API_HOST = process.env.VUE_APP_RAPID_API_HOST;
 
-/**
- * @function request
- * @summary returns HTTP promise
- * @param {Object} options - request options
- * @returns {Promise} - HTTP promise
- */
-const request = (options) => {
-  const { url, method } = options;
-  return new Promise((resolve, reject) => {
-    const data = null;
+const DEFAULT_ERROR_MESSAGE = 'An error occurred. Please reload browser.';
 
-    // initialise XMLHttpRequest
-    const xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-
-    xhr.open(method, url);
-
-    // set request headers
-    xhr.setRequestHeader('x-rapidapi-host', RAPID_API_HOST);
-    xhr.setRequestHeader('x-rapidapi-key', RAPID_API_KEY);
-    xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
-
-    xhr.onload = () => {
-      const { contextWrites } = JSON.parse(xhr.response);
-      const response = buildResponseFromContextWrites(
-        xhr.status, contextWrites
-      );
-      resolve(response);
-    };
-    xhr.onerror = () => {
-      const response = {
-        code: xhr.status,
-        data: xhr.statusText || DEFAULT_ERROR_MESSAGE
-      };
-      console.log('rejected: ', response);
-      reject(response);
-    };
-    xhr.send(data);
-  });
+const ERROR_MESSAGES = {
+  404: 'This page cannot be found.',
+  405: 'Your request could be processed. Please contact Admin.'
 };
 
-/**
- * @function getResource
- * @summary returns HTTP promise for get request
- * @param {Object} url - API url
- * @returns {Promise} - HTTP promise
- */
-export const getResource = (url) => {
-  const options = {
-    url,
-    method: 'GET'
-  };
-  return request(options);
+const axiosInstance = axios.create({
+  baseURL: RAPID_API_BASE_URL,
+  headers: {
+    'x-rapidapi-host': RAPID_API_HOST,
+    'x-rapidapi-key': RAPID_API_KEY,
+    'content-type': 'application/x-www-form-urlencoded'
+  }
+});
+
+export const processError = (error) => {
+  const { response } = error;
+  const errorMessage = ERROR_MESSAGES[response.status] || response.data.message;
+  return errorMessage || DEFAULT_ERROR_MESSAGE;
 };
 
-/**
- * @function postResource
- * @summary returns HTTP promise for post request
- * @param {Object} url - API url
- * @returns {Promise} - HTTP promise
- */
-export const postResource = (url) => {
-  const options = {
-    url,
-    method: 'POST'
-  };
-  return request(options);
-};
+export default axiosInstance;

@@ -3,51 +3,70 @@
     <HelloWorld msg="Star Wars Movie Finder"/>
     <input-select
       :options="filmOptionList"
-      :loading="loading"
+      :loading="loadingFilmOptions"
+      loadingText="Loading films"
       @change="handleSelectChange">
     </input-select>
-    <div v-if="error">
-      <h3 class="text-error">{{ error }}</h3>
-    </div>
-    <div class="brand__image">
-      <img alt="Vue logo" src="../assets/logo.png">
-    </div>
+    <app-error
+      v-if="error"
+      :error="error"
+      :handleError="reloadPage"
+      buttonText="Reload">
+    </app-error>
+    <transition name="fade" :duration="1000" mode="out-in">
+      <div v-if="showBrandImage" class="brand__image">
+        <img alt="Vue logo" src="../assets/logo.png">
+      </div>
+    </transition>
+    <star-wars-film
+      :loading="loadingFilm"
+      :film="film">
+    </star-wars-film>
   </div>
 </template>
 
 <script>
+import AppError from '@/components/AppError';
 import HelloWorld from '@/components/HelloWorld.vue';
 import InputSelect from '@/components/form/select/InputSelect';
-import { getAllFilms } from '@/api/star-wars.api';
+import StarWarsFilm from '@/components/film/StarWarsFilm';
+import { getAllFilms, getFilm } from '@/api/star-wars.api';
 
 export default {
   name: 'Home',
   components: {
+    AppError,
     HelloWorld,
-    InputSelect
+    InputSelect,
+    StarWarsFilm
   },
   data() {
     return {
-      loading: false,
+      error: null,
+      film: null,
       films: [],
       filmOptionList: [],
-      error: null
+      loadingFilmOptions: false,
+      loadingFilm: false
     };
   },
   computed: {
     filmsExist() {
       return this.films.length > 0;
+    },
+    showBrandImage() {
+      return !this.film;
     }
   },
   async mounted() {
     this.getAllFilms();
   },
   methods: {
-    handleSelectChange(item) {
-      console.log('option selected: ', item);
+    async handleSelectChange(item) {
+      await this.getFilm({ url: item.value });
     },
     async getAllFilms() {
-      this.loading = true;
+      this.loadingFilmOptions = true;
       const { films, filmOptionList, apiError } = await getAllFilms();
       if (apiError) {
         this.error = apiError;
@@ -55,7 +74,21 @@ export default {
         this.films = films;
         this.filmOptionList = filmOptionList;
       }
-      this.loading = false;
+      this.loadingFilmOptions = false;
+    },
+    async getFilm({ url }) {
+      this.loadingFilm = true;
+      const { film, apiError } = await getFilm(url);
+
+      if (apiError) {
+        this.error = apiError;
+      } else {
+        this.film = film;
+      }
+      this.loadingFilm = false;
+    },
+    reloadPage() {
+      window.location.reload(true);
     }
   }
 };

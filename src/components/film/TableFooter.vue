@@ -7,7 +7,7 @@
       </div>
     </td>
     <td>
-      <div class="flex items-center justify-between">
+      <div class="total-height">
         <span>Total:</span>
         <div class="flex flex-col">
           <span class="text-sm text-yellow">

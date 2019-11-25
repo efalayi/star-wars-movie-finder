@@ -1,7 +1,9 @@
-import { faSpinner, faHeart, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCaretDown, faCaretUp, faFemale, faHeart, faMale, faSpinner
+} from '@fortawesome/free-solid-svg-icons';
 
 const FONT_AWESOME_ICONS = [
-  faSpinner, faHeart, faCaretDown
+  faCaretDown, faCaretUp, faFemale, faHeart, faMale, faSpinner
 ];
 
 export default FONT_AWESOME_ICONS;

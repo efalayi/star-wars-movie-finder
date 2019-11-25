@@ -7,11 +7,13 @@
 const buildFilmCharacterList = (promiseList) => {
   const characterList = promiseList.map((item) => {
     const { data } = item;
+    const height = Number.parseInt(data.height, 10);
+    const isValidHeightValue = Number.isNaN(height);
     return {
       id: `${data.name}-${data.birth_year}`,
       name: data.name,
       gender: data.gender,
-      height: data.height
+      height: isValidHeightValue ? data.height : height
     };
   });
   return characterList;

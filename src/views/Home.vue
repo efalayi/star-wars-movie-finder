@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Star Wars Movie Finder"/>
+    <h1 class="text-center">Star Wars Movie Finder</h1>
     <input-select
       :options="filmOptionList"
       :loading="loadingFilmOptions"
@@ -14,7 +14,7 @@
       buttonText="Reload">
     </app-error>
     <transition name="fade" :duration="1000" mode="out-in">
-      <div v-if="showBrandImage" class="brand__image">
+      <div v-if="showBrandImage" class="brand__image animated fadeIn">
         <img alt="Vue logo" src="../assets/logo.png">
       </div>
     </transition>
@@ -27,7 +27,6 @@
 
 <script>
 import AppError from '@/components/AppError';
-import HelloWorld from '@/components/HelloWorld.vue';
 import InputSelect from '@/components/form/select/InputSelect';
 import StarWarsFilm from '@/components/film/StarWarsFilm';
 import { getAllFilms, getFilm } from '@/api/star-wars.api';
@@ -36,7 +35,6 @@ export default {
   name: 'Home',
   components: {
     AppError,
-    HelloWorld,
     InputSelect,
     StarWarsFilm
   },

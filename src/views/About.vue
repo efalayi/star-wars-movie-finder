@@ -1,6 +1,14 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h3 class="text-center">Find out more about your favorite Star Wars movies and characters. <br>
+      <span class="text-sm">May the force be with the you! 💪</span>
+    </h3>
+
+    <span>Many thanks to
+      <span class="uppercase text-yellow">
+        <a href="https://swapi.co/">swapi</a>
+      </span>
+    </span>
   </div>
 </template>
 

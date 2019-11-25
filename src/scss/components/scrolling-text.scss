@@ -1,3 +1,5 @@
+@import "../abstracts/variables";
+
 .scrolling-text {
   display: flex;
   align-items: center;
@@ -6,6 +8,7 @@
   width: 100%;
   max-width: 50rem;
   margin: 0 auto;
+  padding: $space-5 $space-3 $space-2;
 
   marquee {
     text-align: center;

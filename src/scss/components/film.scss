@@ -8,6 +8,14 @@
 
 .film__table {
   border-collapse: separate;
+
+  .total-height {
+    text-align: center;
+    @media screen and (min-width: $sm-screen) {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
 }
 
 .film__filter {

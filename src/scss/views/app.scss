@@ -4,20 +4,22 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 10% 80% 10%;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
+  padding: $space-5 0;
   background-color: $black;
   color: $gray-600;
 }
 
 .app__content {
+  height: 100%;
   width: 100%;
-  max-width: 96rem;
   margin: 0 auto;
   overflow: hidden;
   padding: #{$space-3 * 4} #{$space-5};
 
-  @media screen and (min-width: 960px) {
+  @media screen and (min-width: $sm-screen) {
+    max-width: 80rem;
     padding-left: #{$space-5 * 4};
     padding-right: #{$space-5 * 4};
   }

@@ -47,6 +47,14 @@
   border-bottom: 0;
   border-left: $input-border-width solid $input-border-color;
   color: $input-color;
+  cursor: pointer;
+
+  .button__icon {
+    transition: transform .5s;
+  }
+  .down {
+    transform: rotate(180deg);
+  }
 }
 
 .select-dropdown {

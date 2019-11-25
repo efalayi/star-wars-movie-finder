@@ -53,7 +53,6 @@ export default {
         return this.filteredCharacters;
       },
       set(newValue) {
-        console.log('filmCharacters updated: ', newValue);
         this.filteredCharacters = newValue;
       }
     },
@@ -67,7 +66,6 @@ export default {
     film(nextValue, prevValue) {
       const prevFilmTitle = prevValue ? prevValue.title : '';
       const nextFilmTitle = nextValue ? nextValue.title : '';
-      console.log('film watcher: ', nextFilmTitle, prevFilmTitle);
 
       if (nextFilmTitle !== prevFilmTitle) {
         this.filterFilmCharacters();
@@ -96,8 +94,8 @@ export default {
       this.genderOption = option;
     },
     sortColumn({ column, order }) {
-      const { film: { characters } } = this;
-      const sortedCharacters = sortFilmCharacters(characters, column.value, order);
+      const { filmCharacters } = this;
+      const sortedCharacters = sortFilmCharacters(filmCharacters, column.value, order);
       this.filmCharacters = sortedCharacters;
     }
   }

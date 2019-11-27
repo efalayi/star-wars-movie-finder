@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import axiosInstance from '@/api/request';
 import FONT_AWESOME_ICONS from '@/vendor/font-awesome';
 import App from './App.vue';
-import router from './router';
 
 // animate.css styles
 import '@/vendor/animate';
@@ -23,6 +22,5 @@ library.add(...FONT_AWESOME_ICONS);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 new Vue({
-  router,
   render: h => h(App)
 }).$mount('#app');

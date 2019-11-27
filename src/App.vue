@@ -3,7 +3,7 @@
     <app-header></app-header>
     <main class="app__content animated linear">
       <transition name="fade" :duration="500" mode="out-in">
-        <router-view></router-view>
+        <Home></Home>
       </transition>
     </main>
     <app-footer/>
@@ -13,11 +13,13 @@
 <script>
 import AppFooter from '@/components/AppFooter';
 import AppHeader from '@/components/AppHeader';
+import Home from '@/views/Home';
 
 export default {
   components: {
     AppFooter,
-    AppHeader
+    AppHeader,
+    Home
   }
 };
 </script>

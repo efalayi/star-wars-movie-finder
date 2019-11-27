@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <h1 class="text-center">Star Wars Movie Finder</h1>
     <input-select
       :options="filmOptionList"
       :loading="loadingFilmOptions"

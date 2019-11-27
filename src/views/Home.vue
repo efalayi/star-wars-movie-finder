@@ -10,6 +10,7 @@
       v-if="error"
       :error="error"
       :handleError="reloadPage"
+      showErrorButton
       buttonText="Reload">
     </app-error>
     <transition name="fade" :duration="1000" mode="out-in">

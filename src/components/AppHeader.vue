@@ -1,7 +1,6 @@
 <template>
   <div class="app__header">
-    <router-link to="/">Home</router-link>
-    <router-link to="/about">About</router-link>
+    <h1 class="text-center">Star Wars Movie Finder</h1>
   </div>
 </template>
 

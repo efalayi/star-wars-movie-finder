@@ -6,19 +6,34 @@
  */
 const buildGenderFilterOptions = (characters) => {
   const filterKeys = ['all'];
-  const filterOptions = [{ id: 'all', value: 'all', label: 'All' }];
+  const options = [{ id: 'all', value: 'all', label: 'All' }];
 
   characters.forEach((character) => {
     const { gender } = character;
     const genderKeyExists = filterKeys.includes(gender);
     if (!genderKeyExists) {
-      filterOptions.push({
+      options.push({
         id: character.id,
         value: gender,
         label: gender
       });
       filterKeys.push(gender);
     }
+  });
+
+  const filterOptions = [...options].sort((currentOption, nextOption) => {
+    const currentValue = currentOption.value;
+    const nextValue = nextOption.value;
+
+    if (currentValue < nextValue) {
+      return -1;
+    }
+
+    if (currentValue > nextValue) {
+      return 1;
+    }
+
+    return 0;
   });
   return filterOptions;
 };

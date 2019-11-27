@@ -36,7 +36,7 @@ export async function getStarWarsFilmCharacters(characterUrls) {
     const filmCharacters = buildFilmCharacterList(resolvedPromises);
     return filmCharacters;
   } catch (error) {
-    throw new Error(error);
+    return Promise.reject(error);
   }
 }
 

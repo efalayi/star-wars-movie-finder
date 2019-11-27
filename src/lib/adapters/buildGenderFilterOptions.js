@@ -1,3 +1,10 @@
+
+/**
+ * @summary constant representing non-binary genders
+ * @see https://en.wikipedia.org/wiki/Non-binary_gender
+ */
+const NON_BINARY = ['hermaphrodite', 'n/a', 'none', 'unknown'];
+
 /**
  * @function buildGenderFilterOptions
  * @summary build gender options for a star wars film
@@ -10,14 +17,22 @@ const buildGenderFilterOptions = (characters) => {
 
   characters.forEach((character) => {
     const { gender } = character;
-    const genderKeyExists = filterKeys.includes(gender);
+    const isNonBinary = NON_BINARY.includes(gender.toLowerCase());
+    const characterGender = isNonBinary ? 'Non-Binary' : gender;
+    const genderKeyExists = filterKeys.includes(characterGender);
+
     if (!genderKeyExists) {
-      options.push({
+      const genderOption = isNonBinary ? {
+        id: 'non-binary',
+        value: NON_BINARY.toString(),
+        label: 'Non-Binary'
+      } : {
         id: character.id,
         value: gender,
         label: gender
-      });
-      filterKeys.push(gender);
+      };
+      options.push(genderOption);
+      filterKeys.push(characterGender);
     }
   });
 

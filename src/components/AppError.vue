@@ -2,7 +2,7 @@
   <div class="app-error">
     <h5 class="app-error__message">{{ error }}</h5>
     <button
-      v-if="handleError"
+      v-if="showErrorButton"
       class="app-error__button"
       @click="handleError">
       {{ buttonText }}
@@ -16,8 +16,11 @@ export default {
   props: {
     error: String,
     handleError: {
-      type: Function,
-      default: null
+      type: Function
+    },
+    showErrorButton: {
+      type: Boolean,
+      default: false
     },
     buttonText: String
   }

@@ -25,7 +25,7 @@ const buildGenderFilterOptions = (characters) => {
       const genderOption = isNonBinary ? {
         id: 'non-binary',
         value: NON_BINARY.toString(),
-        label: 'Non-Binary'
+        label: 'non-binary'
       } : {
         id: character.id,
         value: gender,
@@ -37,14 +37,14 @@ const buildGenderFilterOptions = (characters) => {
   });
 
   const filterOptions = [...options].sort((currentOption, nextOption) => {
-    const currentValue = currentOption.value;
-    const nextValue = nextOption.value;
+    const currentLabel = currentOption.label;
+    const nextLabel = nextOption.label;
 
-    if (currentValue < nextValue) {
+    if (currentLabel < nextLabel) {
       return -1;
     }
 
-    if (currentValue > nextValue) {
+    if (currentLabel > nextLabel) {
       return 1;
     }
 

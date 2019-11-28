@@ -6,16 +6,12 @@
  * @returns {Array} filmOptions - formatted list for input select component
  */
 const buildFilmOptionList = (films) => {
-  const filmOptions = [];
-
-  films.forEach((film) => {
-    filmOptions.push({
-      value: film.url,
-      label: film.title,
-      primaryText: film.title,
-      secondaryText: film.release_date
-    });
-  });
+  const filmOptions = films.map(film => ({
+    value: film.url,
+    label: film.title,
+    primaryText: film.title,
+    secondaryText: film.release_date
+  }));
   return filmOptions;
 };
 

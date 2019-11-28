@@ -3,10 +3,10 @@
 .app__container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 10% 80% 10%;
+  grid-template-rows: 120px 1fr 120px;
   min-height: 100vh;
   width: 100%;
-  padding: $space-5 0;
+  padding: 0 0 $space-5;
   background-color: $black;
   color: $gray-600;
 }
@@ -16,7 +16,7 @@
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
-  padding: #{$space-3 * 4} #{$space-5};
+  padding: $space-1 #{$space-5} #{$space-3 * 4};
 
   @media screen and (min-width: $sm-screen) {
     max-width: 80rem;

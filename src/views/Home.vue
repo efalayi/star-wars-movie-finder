@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <h1 class="text-center">Star Wars Movie Finder</h1>
     <input-select
       :options="filmOptionList"
       :loading="loadingFilmOptions"
@@ -11,6 +10,7 @@
       v-if="error"
       :error="error"
       :handleError="reloadPage"
+      showErrorButton
       buttonText="Reload">
     </app-error>
     <transition name="fade" :duration="1000" mode="out-in">
@@ -29,7 +29,8 @@
 import AppError from '@/components/AppError';
 import InputSelect from '@/components/form/select/InputSelect';
 import StarWarsFilm from '@/components/film/StarWarsFilm';
-import { getAllFilms, getFilm } from '@/api/star-wars.api';
+import { getAllFilms, getFilmByUrl } from '@/api/star-wars.api';
+import { getFilmFromCache, saveFilmToCache } from '@/lib/helpers/cache.helper';
 
 export default {
   name: 'Home',
@@ -61,7 +62,7 @@ export default {
   },
   methods: {
     async handleSelectChange(item) {
-      await this.getFilm({ url: item.value });
+      await this.getFilm(item);
     },
     async getAllFilms() {
       this.loadingFilmOptions = true;
@@ -74,15 +75,21 @@ export default {
       }
       this.loadingFilmOptions = false;
     },
-    async getFilm({ url }) {
+    async getFilm(item) {
+      const { label, value: url } = item;
       this.loadingFilm = true;
-      const { film, apiError } = await getFilm(url);
+      let retrievedFilm = getFilmFromCache(label);
 
-      if (apiError) {
+      if (!retrievedFilm) {
+        const { apiError, film } = await getFilmByUrl(url);
         this.error = apiError;
-      } else {
-        this.film = film;
+        retrievedFilm = film;
+
+        if (!apiError) {
+          saveFilmToCache(retrievedFilm);
+        }
       }
+      this.film = retrievedFilm;
       this.loadingFilm = false;
     },
     reloadPage() {

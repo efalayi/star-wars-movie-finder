@@ -1,14 +1,9 @@
-import Vue from 'vue';
-import axios from 'axios';
 import buildFilmCharacterList from '@/lib/adapters/buildFilmCharacterList';
 import buildFilmOptionList from '@/lib/adapters/buildFilmOptionList';
-import buildResponseFromContextWrites from '@/lib/adapters/buildResponseFromContextWrites';
 import formatStarWarsFilm from '@/lib/formatters/formatStarWarsFilm';
 import sortFilmsByReleaseDate from '@/lib/formatters/sortFilmsByReleaseDate';
-import { processError } from './request';
+import { getRequest, processError } from './request';
 import END_POINTS from './endpoints';
-
-// const SWAPI_BASE_URL = process.env.VUE_APP_SWAPI_BASE_URL;
 
 const removeEndSlash = (text) => {
   const endsWithForwardSlash = text.endsWith('/');
@@ -29,14 +24,14 @@ const removeEndSlash = (text) => {
 export async function getStarWarsFilmCharacters(characterUrls) {
   const requests = characterUrls.map((characterUrl) => {
     const url = removeEndSlash(characterUrl);
-    return axios.get(url);
+    return getRequest(url);
   });
   try {
     const resolvedPromises = await Promise.all(requests);
     const filmCharacters = buildFilmCharacterList(resolvedPromises);
     return filmCharacters;
   } catch (error) {
-    throw new Error(error);
+    return Promise.reject(error);
   }
 }
 
@@ -51,15 +46,9 @@ export async function getAllFilms() {
   let filmOptionList = [];
 
   try {
-    const { data } = await Vue.axios.post(END_POINTS.getFilms);
-    const { callback, contextWrites } = data;
-    if (callback === 'error') {
-      apiError = 'an error occurred';
-    } else {
-      const response = buildResponseFromContextWrites(contextWrites, null);
-      films = sortFilmsByReleaseDate(response.data.results, 'asc');
-      filmOptionList = buildFilmOptionList(films);
-    }
+    const data = await getRequest(END_POINTS.getFilms);
+    films = sortFilmsByReleaseDate(data.results, 'asc');
+    filmOptionList = buildFilmOptionList(films);
   } catch (error) {
     apiError = processError(error);
   }
@@ -72,19 +61,19 @@ export async function getAllFilms() {
 }
 
 /**
- * @function getFilm
+ * @function getFilmByUrl
  * @param {String} filmUrl - url of Star Wars film
  * @returns {Object} - object containg film, and apiError
  */
-export async function getFilm(filmUrl) {
+export async function getFilmByUrl(filmUrl) {
   const url = removeEndSlash(filmUrl);
   let apiError = null;
   let film = null;
 
   try {
-    const { data } = await axios.post(url);
-    const filmCharacters = await getStarWarsFilmCharacters(data.characters);
-    film = formatStarWarsFilm(data, filmCharacters);
+    const response = await getRequest(url);
+    const filmCharacters = await getStarWarsFilmCharacters(response.characters);
+    film = formatStarWarsFilm(response, filmCharacters);
   } catch (error) {
     apiError = processError(error);
   }

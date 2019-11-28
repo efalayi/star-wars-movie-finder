@@ -15,7 +15,7 @@
         <th scope="row">{{ index + 1 }}</th>
         <td>{{ character.name }}</td>
         <td class="text-center">
-          <span v-if="genderIsUndefined(character.gender)">
+          <span v-if="isNonBinaryGender(character.gender)">
             {{ character.gender }}
           </span>
           <font-awesome-icon
@@ -66,11 +66,11 @@ export default {
     }
   },
   methods: {
-    genderIsUndefined(gender) {
+    isNonBinaryGender(gender) {
       const isMale = gender.toLowerCase() === 'male';
       const isFemale = gender.toLowerCase() === 'female';
-      const isUndefined = !isMale && !isFemale;
-      return isUndefined;
+      const isNonBinary = !isMale && !isFemale;
+      return isNonBinary;
     }
   }
 };

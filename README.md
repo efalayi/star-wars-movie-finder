@@ -11,7 +11,7 @@ To install the project on your PC, you'd need to have the following installed:
 Setting up the project can be accomplished by following the steps listed below
 * Make a copy of the `.env.sample` file found in the root of the project and name the file `.env`, this file contains environment variables required to get this project running. Ensure to fill the keys with the appropriate values.
 
-**NB:** RadiAPI was used to connect this app to SWAPI. Visit [https://docs.rapidapi.com/](https://docs.rapidapi.com/) to set it up before starting the project.
+**NB:** This project fetches data from [SWAPI](https://swapi.co/documentation#intro)
 
 * Install the project dependencies with the command
 ```sh

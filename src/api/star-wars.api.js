@@ -1,9 +1,9 @@
-import axios from 'axios';
+// import axios from 'axios';
 import buildFilmCharacterList from '@/lib/adapters/buildFilmCharacterList';
 import buildFilmOptionList from '@/lib/adapters/buildFilmOptionList';
 import formatStarWarsFilm from '@/lib/formatters/formatStarWarsFilm';
 import sortFilmsByReleaseDate from '@/lib/formatters/sortFilmsByReleaseDate';
-import { processError } from './request';
+import { getRequest, processError } from './request';
 import END_POINTS from './endpoints';
 
 // const SWAPI_BASE_URL = process.env.VUE_APP_SWAPI_BASE_URL;
@@ -27,7 +27,7 @@ const removeEndSlash = (text) => {
 export async function getStarWarsFilmCharacters(characterUrls) {
   const requests = characterUrls.map((characterUrl) => {
     const url = removeEndSlash(characterUrl);
-    return axios.get(url);
+    return getRequest(url);
   });
   try {
     const resolvedPromises = await Promise.all(requests);
@@ -49,7 +49,7 @@ export async function getAllFilms() {
   let filmOptionList = [];
 
   try {
-    const { data } = await axios.get(END_POINTS.getFilms);
+    const data = await getRequest(END_POINTS.getFilms);
     films = sortFilmsByReleaseDate(data.results, 'asc');
     filmOptionList = buildFilmOptionList(films);
   } catch (error) {
@@ -74,9 +74,9 @@ export async function getFilm(filmUrl) {
   let film = null;
 
   try {
-    const { data } = await axios.post(url);
-    const filmCharacters = await getStarWarsFilmCharacters(data.characters);
-    film = formatStarWarsFilm(data, filmCharacters);
+    const response = await getRequest(url);
+    const filmCharacters = await getStarWarsFilmCharacters(response.characters);
+    film = formatStarWarsFilm(response, filmCharacters);
   } catch (error) {
     apiError = processError(error);
   }

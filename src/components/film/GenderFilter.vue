@@ -23,28 +23,8 @@
 export default {
   name: 'GenderFilter',
   props: {
-    selectedOption: String
-  },
-  data() {
-    return {
-      filterOptions: [
-        {
-          id: 'all',
-          value: 'all',
-          label: 'All'
-        },
-        {
-          id: 'female',
-          value: 'female',
-          label: 'Female'
-        },
-        {
-          id: 'male',
-          value: 'male',
-          label: 'Male'
-        }
-      ]
-    };
+    selectedOption: String,
+    filterOptions: Array
   },
   methods: {
     handleOptionChange(event) {

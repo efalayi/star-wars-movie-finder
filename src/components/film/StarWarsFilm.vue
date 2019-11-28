@@ -14,6 +14,7 @@
       <h6>{{ film.openingCrawl }}</h6>
     </scrolling-text>
     <gender-filter
+      :filterOptions="genderFilterOptions"
       :selectedOption="genderOption"
       @change="handleGenderOptionChange"></gender-filter>
     <film-characters-table
@@ -24,6 +25,7 @@
 </template>
 
 <script>
+import buildGenderFilterOptions from '@/lib/adapters/buildGenderFilterOptions';
 import filterCharacters from '@/lib/formatters/filterCharacters';
 import sortFilmCharacters from '@/lib/formatters/sortFilmCharacters';
 import Loader from '../Loader';
@@ -46,7 +48,8 @@ export default {
   data() {
     return {
       genderOption: 'all',
-      filteredCharacters: []
+      filteredCharacters: [],
+      genderOptions: []
     };
   },
   computed: {
@@ -62,16 +65,23 @@ export default {
       const { film } = this;
       const openingCrawl = film ? film.openingCrawl : '';
       return Boolean(openingCrawl);
+    },
+    genderFilterOptions: {
+      get() {
+        return this.genderOptions;
+      },
+      set(value) {
+        this.genderOptions = value;
+      }
     }
   },
   watch: {
-    film(nextValue, prevValue) {
-      const prevFilmTitle = prevValue ? prevValue.title : '';
-      const nextFilmTitle = nextValue ? nextValue.title : '';
+    film(/* nextValue, prevValue */) {
+      // const prevFilmTitle = prevValue ? prevValue.title : '';
+      // const nextFilmTitle = nextValue ? nextValue.title : '';
 
-      if (nextFilmTitle !== prevFilmTitle) {
-        this.filterFilmCharacters();
-      }
+      this.setGenderOptions();
+      this.filterFilmCharacters();
     },
     genderOption(nextValue, prevValue) {
       if (nextValue !== prevValue) {
@@ -94,6 +104,10 @@ export default {
     },
     handleGenderOptionChange(option) {
       this.genderOption = option;
+    },
+    setGenderOptions() {
+      const { film } = this;
+      this.genderOptions = buildGenderFilterOptions(film.characters);
     },
     sortColumn({ column, order }) {
       const { filmCharacters } = this;

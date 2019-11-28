@@ -63,9 +63,20 @@ export default {
     };
   },
   methods: {
+    removeOrderClassInColumns() {
+      const columnRefs = this.$refs;
+      const columns = Object.values(columnRefs);
+      columns.forEach((column) => {
+        const [element] = column;
+        element.classList.remove('ascending', 'descending');
+      });
+    },
     updateSortableIconStyle(columnValue, order) {
       const [parentElement] = this.$refs[columnValue];
       const orderClass = order === 'asc' ? 'ascending' : 'descending';
+
+      // remove existing order classes from columns
+      this.removeOrderClassInColumns();
       parentElement.classList.add(orderClass);
     },
     handleColumnClick(column, order) {

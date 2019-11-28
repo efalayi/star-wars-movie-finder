@@ -11,8 +11,8 @@ const shouldUpdateCache = (cache, currentFilm) => {
   if (cacheLength === 0) {
     return true;
   }
-  const retrievedFilm = cache.filter(film => film.title === currentFilm.title);
-  return retrievedFilm.length === 0;
+  const [retrievedFilm] = cache.filter(film => film.title === currentFilm.title);
+  return Boolean(retrievedFilm);
 };
 
 /**

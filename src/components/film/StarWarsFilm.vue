@@ -76,12 +76,15 @@ export default {
     }
   },
   watch: {
-    film(/* nextValue, prevValue */) {
-      // const prevFilmTitle = prevValue ? prevValue.title : '';
-      // const nextFilmTitle = nextValue ? nextValue.title : '';
+    film(nextValue, prevValue) {
+      const prevFilmTitle = prevValue ? prevValue.title : '';
+      const nextFilmTitle = nextValue ? nextValue.title : '';
 
-      this.setGenderOptions();
-      this.filterFilmCharacters();
+      if (nextFilmTitle !== prevFilmTitle) {
+        this.setGenderOptions();
+        this.filterFilmCharacters();
+        this.genderOption = 'all';
+      }
     },
     genderOption(nextValue, prevValue) {
       if (nextValue !== prevValue) {

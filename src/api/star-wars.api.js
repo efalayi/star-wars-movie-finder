@@ -1,8 +1,6 @@
-import Vue from 'vue';
 import axios from 'axios';
 import buildFilmCharacterList from '@/lib/adapters/buildFilmCharacterList';
 import buildFilmOptionList from '@/lib/adapters/buildFilmOptionList';
-import buildResponseFromContextWrites from '@/lib/adapters/buildResponseFromContextWrites';
 import formatStarWarsFilm from '@/lib/formatters/formatStarWarsFilm';
 import sortFilmsByReleaseDate from '@/lib/formatters/sortFilmsByReleaseDate';
 import { processError } from './request';
@@ -51,15 +49,9 @@ export async function getAllFilms() {
   let filmOptionList = [];
 
   try {
-    const { data } = await Vue.axios.post(END_POINTS.getFilms);
-    const { callback, contextWrites } = data;
-    if (callback === 'error') {
-      apiError = 'an error occurred';
-    } else {
-      const response = buildResponseFromContextWrites(contextWrites, null);
-      films = sortFilmsByReleaseDate(response.data.results, 'asc');
-      filmOptionList = buildFilmOptionList(films);
-    }
+    const { data } = await axios.get(END_POINTS.getFilms);
+    films = sortFilmsByReleaseDate(data.results, 'asc');
+    filmOptionList = buildFilmOptionList(films);
   } catch (error) {
     apiError = processError(error);
   }

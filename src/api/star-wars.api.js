@@ -1,12 +1,9 @@
-// import axios from 'axios';
 import buildFilmCharacterList from '@/lib/adapters/buildFilmCharacterList';
 import buildFilmOptionList from '@/lib/adapters/buildFilmOptionList';
 import formatStarWarsFilm from '@/lib/formatters/formatStarWarsFilm';
 import sortFilmsByReleaseDate from '@/lib/formatters/sortFilmsByReleaseDate';
 import { getRequest, processError } from './request';
 import END_POINTS from './endpoints';
-
-// const SWAPI_BASE_URL = process.env.VUE_APP_SWAPI_BASE_URL;
 
 const removeEndSlash = (text) => {
   const endsWithForwardSlash = text.endsWith('/');
@@ -64,11 +61,11 @@ export async function getAllFilms() {
 }
 
 /**
- * @function getFilm
+ * @function getFilmByUrl
  * @param {String} filmUrl - url of Star Wars film
  * @returns {Object} - object containg film, and apiError
  */
-export async function getFilm(filmUrl) {
+export async function getFilmByUrl(filmUrl) {
   const url = removeEndSlash(filmUrl);
   let apiError = null;
   let film = null;

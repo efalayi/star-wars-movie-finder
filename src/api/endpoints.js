@@ -1,5 +1,5 @@
 const END_POINTS = {
-  getFilms: 'getFilms',
+  getFilms: 'https://swapi.co/api/films/',
   getFilmById: 'getSingleFilm'
 };
 

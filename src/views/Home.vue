@@ -29,7 +29,7 @@
 import AppError from '@/components/AppError';
 import InputSelect from '@/components/form/select/InputSelect';
 import StarWarsFilm from '@/components/film/StarWarsFilm';
-import { getAllFilms, getFilm } from '@/api/star-wars.api';
+import { getAllFilms, getFilmByUrl } from '@/api/star-wars.api';
 import { getFilmFromCache, saveFilmToCache } from '@/lib/helpers/cache.helper';
 
 export default {
@@ -78,10 +78,10 @@ export default {
     async getFilm(item) {
       const { label, value: url } = item;
       this.loadingFilm = true;
-      let retrievedFilm = await getFilmFromCache(label);
+      let retrievedFilm = getFilmFromCache(label);
 
       if (!retrievedFilm) {
-        const { apiError, film } = await getFilm(url);
+        const { apiError, film } = await getFilmByUrl(url);
         this.error = apiError;
         retrievedFilm = film;
 

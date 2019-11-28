@@ -6,14 +6,13 @@
  * @returns {Boolean}
  */
 const shouldUpdateCache = (cache, currentFilm) => {
-  const filmCache = [...cache];
-  const cacheLength = filmCache.length;
+  const cacheLength = cache.length;
 
   if (cacheLength === 0) {
     return true;
   }
-  const filmExistsInCache = cache.filter(film => film.title === currentFilm.title);
-  return Boolean(filmExistsInCache);
+  const [retrievedFilm] = cache.filter(film => film.title === currentFilm.title);
+  return Boolean(retrievedFilm);
 };
 
 /**

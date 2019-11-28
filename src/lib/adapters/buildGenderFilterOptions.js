@@ -7,13 +7,13 @@ const NON_BINARY = ['hermaphrodite', 'n/a', 'none', 'unknown'];
 
 /**
  * @function buildGenderFilterOptions
- * @summary build gender options for a star wars film
+ * @summary build gender genderOptions for a star wars film
  * @param {Array} characters - Star Wars film characters
- * @returns {Array} filterOptions
+ * @returns {Array} genderfilterOptions
  */
 const buildGenderFilterOptions = (characters) => {
   const filterKeys = ['all'];
-  const options = [{ id: 'all', value: 'all', label: 'All' }];
+  const genderOptions = [{ id: 'all', value: 'all', label: 'All' }];
 
   characters.forEach((character) => {
     const { gender } = character;
@@ -31,12 +31,13 @@ const buildGenderFilterOptions = (characters) => {
         value: gender,
         label: gender
       };
-      options.push(genderOption);
+      genderOptions.push(genderOption);
       filterKeys.push(characterGender);
     }
   });
 
-  const filterOptions = [...options].sort((currentOption, nextOption) => {
+  // sort gender genderOptions
+  const genderfilterOptions = [...genderOptions].sort((currentOption, nextOption) => {
     const currentLabel = currentOption.label;
     const nextLabel = nextOption.label;
 
@@ -50,7 +51,7 @@ const buildGenderFilterOptions = (characters) => {
 
     return 0;
   });
-  return filterOptions;
+  return genderfilterOptions;
 };
 
 export default buildGenderFilterOptions;

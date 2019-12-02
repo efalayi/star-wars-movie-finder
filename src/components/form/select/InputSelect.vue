@@ -5,7 +5,7 @@
         class="select-field__input"
         type="text"
         placeholder="Select Option"
-        v-model="selected.label"
+        v-model="value.label"
         @input="handleQueryChange"
         @focus="handleSelectFieldFocus"
       />
@@ -16,45 +16,29 @@
           :class="{
             'button__icon': true,
             'down': showDropdown
-          }"></font-awesome-icon>
+          }">
+        </font-awesome-icon>
       </button>
     </div>
-    <transition name="flipX" :duration="500">
-      <div v-if="showDropdown" :class="{
-        'select-dropdown': true
-      }">
-        <div v-if="loading" class="select-dropdown--loading">
-          <list-item>
-            <loader slot="list-item" :loadingText="loadingText"></loader>
-          </list-item>
-        </div>
-        <div v-else-if="!hasOptions" class="select-dropdown-no-options">
-          <list-item
-            :item="{ primaryText: noOptionsText }">
-          </list-item>
-        </div>
-        <select-option-list
-          v-else
-          :options="filteredOptions"
-          :isSelected="isSelected"
-          :handleOptionClick="handleOptionClick">
-        </select-option-list>
-      </div>
-    </transition>
+    <select-dropdown
+      :value="selected"
+      v-on:update:selected="handleSelectUpdate"
+      :visible="showDropdown"
+      :loading="loading"
+      :loadingText="loadingText"
+      :noOptionsText="noOptionsText"
+      :options="filteredOptions">
+    </select-dropdown>
   </div>
 </template>
 
 <script>
-import ListItem from '../../list/ListItem';
-import Loader from '../../Loader';
-import SelectOptionList from './SelectOptionList';
+import SelectDropdown from './SelectDropdown';
 
 export default {
   name: 'InputSelect',
   components: {
-    ListItem,
-    Loader,
-    SelectOptionList
+    SelectDropdown
   },
   props: {
     loading: Boolean,
@@ -66,9 +50,8 @@ export default {
       type: String,
       default: 'No options'
     },
-    options: {
-      type: Array
-    }
+    options: Array,
+    value: Object
   },
   data() {
     return {
@@ -103,20 +86,17 @@ export default {
       }
       this.query = query;
     },
-    handleOptionClick(item) {
-      this.selected = item;
-      this.query = '';
-      this.$emit('change', item);
-      this.showDropdown = false;
-    },
     handleSelectFieldFocus() {
       this.showDropdown = true;
     },
-    isSelected(option) {
-      return option.value === this.selected.value;
-    },
     toggleDropdown() {
       this.showDropdown = !this.showDropdown;
+    },
+    handleSelectUpdate(selectedOption) {
+      this.selected = selectedOption;
+      this.query = '';
+      this.$emit('change', selectedOption);
+      this.showDropdown = false;
     }
   }
 };

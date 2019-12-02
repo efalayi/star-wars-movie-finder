@@ -12,7 +12,7 @@ const shouldUpdateCache = (cache, currentFilm) => {
     return true;
   }
   const [retrievedFilm] = cache.filter(film => film.title === currentFilm.title);
-  return Boolean(retrievedFilm);
+  return !retrievedFilm;
 };
 
 /**

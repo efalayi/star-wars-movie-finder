@@ -7,7 +7,7 @@
     @click.stop="handleSelect"
   >
     <slot>
-      {{ currentLabel }}
+      {{ label }}
     </slot>
   </li>
 </template>
@@ -26,19 +26,11 @@ export default {
       required: true
     }
   },
-  computed: {
-    currentLabel() {
-      return this.label;
-    },
-    currentValue() {
-      return this.value;
-    }
-  },
   methods: {
     handleSelect() {
       this.$emit('optionSelected', {
-        label: this.currentLabel,
-        value: this.currentValue
+        label: this.label,
+        value: this.value
       });
     }
   }

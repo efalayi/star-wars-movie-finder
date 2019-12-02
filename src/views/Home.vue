@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <input-select
+      v-model="selectedFilm"
       :options="filmOptionList"
       :loading="loadingFilmOptions"
       loadingText="Loading films"
@@ -46,7 +47,8 @@ export default {
       films: [],
       filmOptionList: [],
       loadingFilmOptions: false,
-      loadingFilm: false
+      loadingFilm: false,
+      selectedFilm: {}
     };
   },
   computed: {
@@ -57,12 +59,22 @@ export default {
       return !this.film;
     }
   },
+  watch: {
+    async selectedFilm(nextValue, prevValue) {
+      const nextValueLabel = nextValue.label;
+      const prevValueLabel = prevValue.label;
+
+      if (nextValueLabel !== prevValueLabel) {
+        await this.getFilm(nextValue);
+      }
+    }
+  },
   async mounted() {
     this.getAllFilms();
   },
   methods: {
     async handleSelectChange(item) {
-      await this.getFilm(item);
+      this.selectedFilm = item;
     },
     async getAllFilms() {
       this.loadingFilmOptions = true;

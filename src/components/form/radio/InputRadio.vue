@@ -1,14 +1,15 @@
 <template>
   <span class="gender__option">
     <input
+      ref="radio"
       type="radio"
-      :id="label"
+      :id="id"
       :name="name"
-      :value="value"
-      :checked="isSelected"
-      @change="handleOptionChange"
-      v-model="model">
-    <label :for="label">{{ label }}</label>
+      :checked="isSelected()"
+      :value="label"
+      v-model="model"
+      @change="handleChange">
+    <label :for="id">{{ label }}</label>
   </span>
 </template>
 
@@ -18,25 +19,37 @@ export default {
   props: {
     value: {},
     label: {},
+    id: String,
     name: String
+  },
+  data() {
+    return {
+      selected: this.value
+    };
   },
   computed: {
     model: {
       get() {
-        return this.value;
+        return this.selected;
       },
       set(value) {
-        console.log('set new radio input value: ', value);
+        this.selected = value;
+      }
+    }
+  },
+  watch: {
+    value(nextValue, prevValue) {
+      if (nextValue !== prevValue) {
+        this.model = nextValue;
       }
     }
   },
   methods: {
-    isSelected(option) {
-      console.log('isSelected: ', option);
-      return this.model === this.label;
+    handleChange() {
+      this.$emit('change', this.model);
     },
-    handleOptionChange() {
-      console.log('handle radio input change');
+    isSelected() {
+      return this.model === this.label;
     }
   }
 };

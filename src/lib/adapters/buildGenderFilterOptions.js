@@ -5,20 +5,18 @@
  * @returns {Array} genderfilterOptions
  */
 const buildGenderFilterOptions = (characters) => {
-  const initialGenderOption = [{ id: 'all', value: 'all', label: 'All' }];
+  const initialGenderOption = [{ id: 'all', value: 'all', label: 'all' }];
   const genderOptions = characters.reduce((accumulator, currentCharacter) => {
     const { gender, id } = currentCharacter;
+    let options = accumulator;
 
     // check if option already exists in accumulator
-    const optionIndex = accumulator.findIndex(item => item.label === gender);
+    const optionIndex = options.findIndex(item => item.label === gender);
     if (optionIndex === -1) {
-      accumulator.push({
-        id,
-        value: gender,
-        label: gender
-      });
+      const genderOption = [{ id, value: gender, label: gender }];
+      options = options.concat(genderOption);
     }
-    return accumulator;
+    return options;
   }, initialGenderOption);
 
   // sort gender genderOptions

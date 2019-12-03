@@ -1,10 +1,3 @@
-
-/**
- * @summary constant representing non-binary genders
- * @see https://en.wikipedia.org/wiki/Non-binary_gender
- */
-const NON_BINARY = ['hermaphrodite', 'n/a', 'none', 'unknown'];
-
 /**
  * @function buildGenderFilterOptions
  * @summary build gender genderOptions for a star wars film
@@ -12,29 +5,19 @@ const NON_BINARY = ['hermaphrodite', 'n/a', 'none', 'unknown'];
  * @returns {Array} genderfilterOptions
  */
 const buildGenderFilterOptions = (characters) => {
-  const filterKeys = ['all'];
-  const genderOptions = [{ id: 'all', value: 'all', label: 'All' }];
+  const initialGenderOption = [{ id: 'all', value: 'all', label: 'all' }];
+  const genderOptions = characters.reduce((accumulator, currentCharacter) => {
+    const { gender, id } = currentCharacter;
+    let options = accumulator;
 
-  characters.forEach((character) => {
-    const { gender } = character;
-    const isNonBinary = NON_BINARY.includes(gender.toLowerCase());
-    const characterGender = isNonBinary ? 'Non-Binary' : gender;
-    const genderKeyExists = filterKeys.includes(characterGender);
-
-    if (!genderKeyExists) {
-      const genderOption = isNonBinary ? {
-        id: 'non-binary',
-        value: NON_BINARY.toString(),
-        label: 'non-binary'
-      } : {
-        id: character.id,
-        value: gender,
-        label: gender
-      };
-      genderOptions.push(genderOption);
-      filterKeys.push(characterGender);
+    // check if option already exists in accumulator
+    const optionIndex = options.findIndex(item => item.label === gender);
+    if (optionIndex === -1) {
+      const genderOption = [{ id, value: gender, label: gender }];
+      options = options.concat(genderOption);
     }
-  });
+    return options;
+  }, initialGenderOption);
 
   // sort gender genderOptions
   const genderfilterOptions = [...genderOptions].sort((currentOption, nextOption) => {
@@ -44,11 +27,9 @@ const buildGenderFilterOptions = (characters) => {
     if (currentLabel < nextLabel) {
       return -1;
     }
-
     if (currentLabel > nextLabel) {
       return 1;
     }
-
     return 0;
   });
   return genderfilterOptions;

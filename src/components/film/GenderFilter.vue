@@ -2,6 +2,13 @@
   <div class="film__filter film__filter--gender">
     <span class="film__filter__title">Gender:</span>
     <div class="gender__options">
+      <!-- <input-radio
+        v-for="option in filterOptions"
+        :key="option.id"
+        :value="option.label"
+        :label="option.label"
+        :name="'gender'">
+      </input-radio> -->
       <span
         v-for="option in filterOptions"
         :key="option.id"
@@ -12,26 +19,31 @@
           name="gender"
           :value="option.value"
           :checked="isSelected(option)"
-          @click="handleOptionChange">
-        <label for="all">{{ option.label }}</label>
+          @change="handleOptionChange">
+        <label :for="option.id">{{ option.label }}</label>
       </span>
     </div>
   </div>
 </template>
 
 <script>
+// import InputRadio from '../form/radio/InputRadio';
+
 export default {
   name: 'GenderFilter',
+  components: {
+    // InputRadio
+  },
   props: {
-    selectedOption: String,
-    filterOptions: Array
+    filterOptions: Array,
+    value: String
   },
   methods: {
     handleOptionChange(event) {
-      this.$emit('change', event.target.value);
+      this.$emit('update:genderOption', event.target.value);
     },
     isSelected(option) {
-      return option.value === this.selectedOption;
+      return option.value === this.value;
     }
   }
 };

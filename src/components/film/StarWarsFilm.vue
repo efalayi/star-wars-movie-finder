@@ -14,9 +14,9 @@
       <h6>{{ film.openingCrawl }}</h6>
     </scrolling-text>
     <gender-filter
+      v-model="genderOption"
       :filterOptions="genderFilterOptions"
-      :selectedOption="genderOption"
-      @change="handleGenderOptionChange"></gender-filter>
+      v-on:update:genderOption="handleGenderOptionChange"></gender-filter>
     <film-characters-table
       :characters="filmCharacters"
       :sortColumn="sortColumn">

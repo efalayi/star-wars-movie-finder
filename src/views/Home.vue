@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <svg-icon name='heart'></svg-icon>
     <input-select
       v-model="selectedFilm"
       :options="filmOptionList"

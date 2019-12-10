@@ -14,8 +14,24 @@ $animations: (
 
 /* Animation Duration */
 .animated {
+  animation-duration: $animation-duration;
+  animation-fill-mode: both;
+  
   // Timing classes
+  &.infinite {
+    animation-iteration-count: infinite;
+  }
+
   &.linear {
     animation-timing-function: linear;
+  }
+
+  // Duration classes
+  &.slow {
+    animation-duration: $animation-duration * 2;
+  }
+
+  &.slower {
+    animation-duration: $animation-duration * 3;
   }
 }

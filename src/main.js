@@ -4,9 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import FONT_AWESOME_ICONS from '@/vendor/font-awesome';
 import App from './App.vue';
 
-// animate.css styles
-import '@/vendor/animate';
-
 // scss base styles
 import '@/scss/main.scss';
 

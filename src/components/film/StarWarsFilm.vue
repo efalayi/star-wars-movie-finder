@@ -2,14 +2,7 @@
   <div v-if="loading">
     <loader loadingText="loading star wars film"></loader>
   </div>
-  <div
-    v-else-if="film"
-    :class="{
-      'film': true,
-      'animated': true,
-      'slower': true,
-      'slideInUp': true
-    }">
+  <div v-else-if="film" class="film">
     <scrolling-text v-if="hasOpeningCrawl">
       <h6>{{ film.openingCrawl }}</h6>
     </scrolling-text>

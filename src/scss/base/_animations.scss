@@ -99,30 +99,14 @@
 
 @keyframes slideInUp {
   from {
-    transform: translate3d(0, 100%, 0);
-    visibility: visible;
+    transform: translateY(100%);
   }
 
   to {
-    transform: translate3d(0, 0, 0);
+    transform: translateY(0);
   }
 }
 
 .slideInUp {
   animation-name: slideInUp;
-}
-
-@keyframes slideInDown {
-  from {
-    transform: translate3d(0, -100%, 0);
-    visibility: visible;
-  }
-
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-.slideInDown {
-  animation-name: slideInDown;
 }

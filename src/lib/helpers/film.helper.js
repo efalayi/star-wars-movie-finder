@@ -1,23 +1,28 @@
 /**
- * @function convertHeightToFeetValue
+ * @function convertFromCmToFeet
  * @summary convert height value to ft
  * @param {Number} height
- * @return {Number} convertedHeight
+ * @return {Array} [feetValue, remainder]
  */
-export const convertHeightToFeetValue = (height) => {
+export const convertFromCmToFeet = (height) => {
   const FT_CONSTANT = 30.48;
-  return Math.floor(height / FT_CONSTANT);
+  const computedValue = height / FT_CONSTANT;
+  const feetValue = Math.floor(height / FT_CONSTANT);
+  const remainder = computedValue - feetValue;
+  return [feetValue, remainder];
 };
 
 /**
- * @function convertHeightToInchValue
+ * @function convertFromFtToInch
  * @summary convert height value to inch
  * @param {Number} height
  * @return {Number} convertedHeight
  */
-export const convertHeightToInchValue = (height) => {
-  const INCH_CONSTANT = 2.54;
-  return Math.floor(height / INCH_CONSTANT);
+export const convertFromFtToInch = (height) => {
+  const INCH_CONSTANT = 12;
+  const computedHeight = height * INCH_CONSTANT;
+  const inchValue = Number.parseFloat(computedHeight.toFixed(2));
+  return inchValue;
 };
 
 /**
@@ -37,9 +42,11 @@ export const sumOfCharacterHeights = (filmCharacters) => {
     return accumulator + currentHeight;
   }, initialValue);
 
+  const [feetValue, remainder] = convertFromCmToFeet(sumOfHeights);
+
   return {
     cm: sumOfHeights,
-    ft: convertHeightToFeetValue(sumOfHeights),
-    inch: convertHeightToInchValue(sumOfHeights)
+    ft: feetValue,
+    inch: convertFromFtToInch(remainder)
   };
 };

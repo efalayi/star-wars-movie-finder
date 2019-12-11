@@ -13,16 +13,14 @@
             {{ column.label }}
           </span>
           <div v-if="column.sortable" class="sortable__icons">
-            <font-awesome-icon
-              icon="caret-up"
-              class="sortable__icon"
-              @click="handleColumnClick(column, 'asc')"
-            />
-            <font-awesome-icon
-              icon="caret-down"
-              class="sortable__icon"
+            <button @click="handleColumnClick(column, 'asc')" class="sortable__icon">
+              <svg-icon name="caretUp"></svg-icon>
+            </button>
+            <button
               @click="handleColumnClick(column, 'desc')"
-            />
+              class="sortable__icon">
+              <svg-icon name="caretDown"></svg-icon>
+            </button>
           </div>
         </div>
       </th>

@@ -14,11 +14,9 @@
       showErrorButton
       buttonText="Reload">
     </app-error>
-    <transition name="fade" :duration="1000" mode="out-in">
-      <div v-if="showBrandImage" class="brand__image animated fadeIn">
-        <img alt="Vue logo" src="../assets/logo.png">
-      </div>
-    </transition>
+    <div v-if="showBrandImage" class="brand__image animated fadeIn">
+      <img alt="Vue logo" src="../assets/logo.png">
+    </div>
     <star-wars-film
       :loading="loadingFilm"
       :film="film">

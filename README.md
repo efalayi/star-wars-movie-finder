@@ -5,7 +5,7 @@ Star wars finder is a Vue project developed by me to help people that love star 
 
 ### Project setup
 To install the project on your PC, you'd need to have the following installed:
-* Node (and NPM/Yarn) - v12
+* Node (and NPM/Yarn) - v12.6.0
 
 *If you have `nvm` installed, run `nvm use` to set Node version to `v12.6.0`*
 Setting up the project can be accomplished by following the steps listed below

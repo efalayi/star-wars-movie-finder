@@ -1,5 +1,11 @@
 <template>
   <div class="home">
+    <svg-icon
+      name="caretDown">
+    </svg-icon>
+    <svg-icon
+      name="spinner">
+    </svg-icon>
     <input-select
       v-model="selectedFilm"
       :options="filmOptionList"

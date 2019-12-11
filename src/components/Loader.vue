@@ -1,6 +1,9 @@
 <template>
   <div class="flex items-center justify-center">
-    <svg-icon name="spinner" :size="iconSize" class="spin"></svg-icon>
+    <svg-icon
+      name="spinner"
+      class="animated rotate slow linear infinite">
+    </svg-icon>
     <span class="capitalise ml-4">{{ loadingText }}</span>
   </div>
 </template>

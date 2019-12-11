@@ -110,3 +110,17 @@
 .slideInUp {
   animation-name: slideInUp;
 }
+
+@keyframes rotate {
+  from {
+    transform: rotateZ(-360deg);
+  }
+
+  to {
+    transform: rotateZ(0);
+  }
+}
+
+.rotate {
+  animation-name: rotate;
+}

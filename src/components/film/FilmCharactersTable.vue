@@ -18,7 +18,11 @@
           <span v-if="isNonBinaryGender(character.gender)">
             {{ character.gender }}
           </span>
-          <svg-icon v-else :name="character.gender"></svg-icon>
+          <font-awesome-icon
+            v-else
+            :icon="character.gender"
+            size="lg">
+          </font-awesome-icon>
         </td>
         <td class="text-center">{{ character.height }}</td>
       </tr>

@@ -2,31 +2,20 @@
 
 $animations: (
   fade: '',
-  flip: X,
+  flip: X Y,
   pulse: '',
-  slide: Up
+  slide: Down Up
 );
+
 
 @each $key, $values in $animations {
   @include make-transitions($key, $values);
 }
 
-/* Animation */
+/* Animation Duration */
 .animated {
-  animation-duration: $animation-duration;
-  animation-fill-mode: both;
-  
   // Timing classes
-  &.infinite {
-    animation-iteration-count: infinite;
-  }
-
   &.linear {
     animation-timing-function: linear;
-  }
-
-  // Duration classes
-  &.slow {
-    animation-duration: $animation-duration * 2;
   }
 }

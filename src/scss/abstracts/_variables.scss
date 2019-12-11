@@ -46,9 +46,8 @@ $space-4: map-get($spacers, 4);
 $space-5: map-get($spacers, 5);
 
 // animation
-$animation-default: 1s;
-$animation-duration: $animation-default;
-$animation-delay: 1s;
+$animate-default: 1s;
+$animate-duration: $animate-default;
 
 // fonts
 $font-family-base:  'Lato', sans-serif;

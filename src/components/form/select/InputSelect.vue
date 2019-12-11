@@ -10,13 +10,14 @@
         @focus="handleSelectFieldFocus"
       />
       <button class="select-field__button" @click="toggleDropdown">
-        <svg-icon
-          name="caretDown"
+        <font-awesome-icon
+          icon="caret-down"
+          size="lg"
           :class="{
             'button__icon': true,
             'down': showDropdown
           }">
-        </svg-icon>
+        </font-awesome-icon>
       </button>
     </div>
     <select-dropdown

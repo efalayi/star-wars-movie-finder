@@ -1,5 +1,5 @@
 <template>
-  <div class="input__select">
+  <div v-click-outside="handleClickOutside" class="input__select">
     <div class="select-field">
       <input
         class="select-field__input"
@@ -77,6 +77,9 @@ export default {
     }
   },
   methods: {
+    handleClickOutside() {
+      this.showDropdown = false;
+    },
     handleQueryChange(event) {
       const query = event.target.value;
 

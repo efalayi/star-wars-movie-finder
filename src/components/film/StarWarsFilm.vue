@@ -2,13 +2,13 @@
   <div v-if="loading">
     <loader loadingText="loading star wars film"></loader>
   </div>
-  <div v-else-if="film" class="film">
+  <div v-else-if="currentFilm" class="film">
     <scrolling-text v-if="hasOpeningCrawl">
       <h6>{{ film.openingCrawl }}</h6>
     </scrolling-text>
     <gender-filter
-      v-model="genderOption"
-      :filterOptions="genderFilterOptions"
+      v-model="selectedGenderOption"
+      :filterOptions="createGenderOptions()"
       v-on:update:genderOption="handleGenderOptionChange"></gender-filter>
     <film-characters-table
       :characters="filmCharacters"
@@ -40,70 +40,58 @@ export default {
   },
   data() {
     return {
-      genderOption: 'all',
-      filteredCharacters: [],
-      genderOptions: []
+      genderOption: '',
+      filmCharacters: []
     };
   },
   computed: {
-    filmCharacters: {
-      get() {
-        return this.filteredCharacters;
-      },
-      set(newValue) {
-        this.filteredCharacters = newValue;
-      }
+    currentFilm() {
+      const { film } = this;
+      const characters = film ? film.characters : [];
+      this.setGenderOption('all');
+      this.setFilmCharacters(characters);
+      return film;
     },
     hasOpeningCrawl() {
       const { film } = this;
       const openingCrawl = film ? film.openingCrawl : '';
       return Boolean(openingCrawl);
     },
-    genderFilterOptions: {
+    selectedGenderOption: {
       get() {
-        return this.genderOptions;
+        return this.genderOption;
       },
-      set(value) {
-        this.genderOptions = value;
+      set(newValue) {
+        this.genderOption = newValue;
       }
-    }
-  },
-  watch: {
-    film(nextValue, prevValue) {
-      const prevFilmTitle = prevValue ? prevValue.title : '';
-      const nextFilmTitle = nextValue ? nextValue.title : '';
-
-      if (nextFilmTitle !== prevFilmTitle) {
-        this.setGenderOptions();
-        this.filterFilmCharacters();
-        this.genderOption = 'all';
-      }
-    },
-    genderOption(nextValue, prevValue) {
-      if (nextValue !== prevValue) {
-        this.filterFilmCharacters();
-      }
-    }
-  },
-  beforeUpdate() {
-    if (this.loading) {
-      this.genderOption = 'all';
     }
   },
   methods: {
+    createGenderOptions() {
+      const { film } = this;
+      if (film) {
+        const genderOptions = buildGenderFilterOptions(film.characters);
+        return genderOptions;
+      }
+      return null;
+    },
     filterFilmCharacters() {
       const { film, genderOption } = this;
       const characters = film ? film.characters : [];
       const filterValue = genderOption === 'all' ? null : genderOption;
-      const filteredCharacters = filterCharacters(characters, 'gender', filterValue);
-      this.filteredCharacters = filteredCharacters;
+      const filmCharacters = filterCharacters(characters, 'gender', filterValue);
+      this.filmCharacters = filmCharacters;
     },
-    handleGenderOptionChange(option) {
+    setGenderOption(gender) {
+      const option = gender || 'all';
       this.genderOption = option;
     },
-    setGenderOptions() {
-      const { film } = this;
-      this.genderOptions = buildGenderFilterOptions(film.characters);
+    setFilmCharacters(characters) {
+      this.filmCharacters = characters;
+    },
+    handleGenderOptionChange(option) {
+      this.setGenderOption(option);
+      this.filterFilmCharacters();
     },
     sortColumn({ column, order }) {
       const { filmCharacters } = this;

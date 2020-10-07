@@ -5,14 +5,7 @@ import sortFilmsByReleaseDate from '@/lib/formatters/sortFilmsByReleaseDate';
 import { getRequest, processError } from './request';
 import END_POINTS from './endpoints';
 
-const removeEndSlash = (text) => {
-  const endsWithForwardSlash = text.endsWith('/');
-  if (endsWithForwardSlash) {
-    const formattedText = text.substring(0, text.length - 1);
-    return formattedText;
-  }
-  return text;
-};
+const CORS_ANYWHERE = 'https://cors-anywhere.herokuapp.com/';
 
 /**
  * @function getStarWarsFilmCharacters
@@ -22,10 +15,7 @@ const removeEndSlash = (text) => {
  * @returns
  */
 export async function getStarWarsFilmCharacters(characterUrls) {
-  const requests = characterUrls.map((characterUrl) => {
-    const url = removeEndSlash(characterUrl);
-    return getRequest(url);
-  });
+  const requests = characterUrls.map(characterUrl => getRequest(`${CORS_ANYWHERE}${characterUrl}`));
   try {
     const resolvedPromises = await Promise.all(requests);
     const filmCharacters = buildFilmCharacterList(resolvedPromises);
@@ -66,12 +56,11 @@ export async function getAllFilms() {
  * @returns {Object} - object containg film, and apiError
  */
 export async function getFilmByUrl(filmUrl) {
-  const url = removeEndSlash(filmUrl);
   let apiError = null;
   let film = null;
 
   try {
-    const response = await getRequest(url);
+    const response = await getRequest(`${CORS_ANYWHERE}${filmUrl}`);
     const filmCharacters = await getStarWarsFilmCharacters(response.characters);
     film = formatStarWarsFilm(response, filmCharacters);
   } catch (error) {

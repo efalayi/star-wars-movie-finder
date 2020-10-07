@@ -34,8 +34,8 @@ const httpRequestHandler = async (options) => {
     method,
     headers: {
       'Content-Type': 'application/json'
-    },
-    mode: 'cors'
+    }
+    // mode: 'cors'
   });
   const responsePromise = await fetch(request);
   const response = await responsePromise.json();

@@ -1,5 +1,7 @@
+const BASE_URL = process.env.VUE_APP_SWAPI_BASE_URL;
+
 const END_POINTS = {
-  getFilms: 'https://swapi.co/api/films/',
+  getFilms: `https://cors-anywhere.herokuapp.com/${BASE_URL}films/`,
   getFilmById: 'getSingleFilm'
 };
 
